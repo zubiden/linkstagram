@@ -1,0 +1,46 @@
+@import "./fonts.scss";
+@import "./reset.scss";
+
+html {
+    // colors
+    --black: #010101;
+    --white: #FFFFFF;
+    --grey: #C9CAD1;
+    --red: #FB766E;
+    --lightGrey: #FAFBFC;
+    --blue: #0087FF;
+    --darkGrey: #808080;
+
+    // element variables
+    --primaryTextColor: var(--black);
+    --secondaryTextColor: var(--darkGrey);
+    --invertedTextColor: var(--white);
+    --accentColor: var(--blue);
+    --accentSecondaryColor: #74EDF2;
+
+    --successColor: #00f543;
+    --errorColor: #ff5d5c;
+
+    --likeColor: var(--red);
+    --iconColor: var(--grey);
+
+    --backgroundColor: var(--white);
+    --pageBackgroundColor: var(--lightGrey);
+
+    --inputColor: var(--grey);
+
+    @media (prefers-color-scheme: dark) {
+        // dark mode?
+    }
+}
+
+#app {
+    min-height: 100vh;
+    width: 100vw;
+    background-color: var(--pageBackgroundColor);
+}
+
+img[src=""],
+img:not([src]) {
+    content: url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==");
+}

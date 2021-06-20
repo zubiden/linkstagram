@@ -1,0 +1,103 @@
+.post {
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        display: flex;
+        margin: 1em 0em;
+    
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+            margin-left: 1em;
+
+            .name {
+                font-weight: bold;
+                line-height: 1.25em;
+            }
+
+            .time {
+                line-height: 1.25em;
+                font-size: 0.75em;
+                color: var(--secondaryTextColor);
+            }
+        }
+
+        .more {
+            color: var(--secondaryTextColor);
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+
+        .square {
+            position: relative;
+            overflow: hidden;
+          
+            &:before {
+              content: '';
+              display: block;
+              padding-top: 100%;
+            }
+
+            .image {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 5em;
+            }
+        }
+
+        .description {
+            display: -webkit-box;
+            margin-top: 1.25em;
+
+            color: var(--secondaryTextColor);
+            max-height: 4.5em;
+            
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .footer {
+        display: flex;
+        margin-top: 1em;
+        .iconText {
+            margin-right: 3em;
+            :global(.icon) {
+                cursor: pointer;
+                color: var(--iconColor);
+            }
+
+            .liked {
+                color: var(--likeColor);
+            }
+
+            .text {
+                font-weight: 600;
+                margin-left: 0.7em;
+            }
+        }
+
+        .separator {
+            flex-grow: 1;
+        }
+
+        .share {
+            &, i {
+                font-weight: 600;
+            }
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+.square {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    flex-grow: 0;
+    border-radius: 1em;
+  
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+
+    .border {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+
+        &.visible {
+            background-image: linear-gradient(to bottom left, var(--accentColor), var(--accentSecondaryColor));
+            padding: 0.15em;
+
+            .avatar {
+                border: 0.15em solid white;
+            }
+        }
+
+        .avatar {
+            border-radius: 0.75em;
+            border: 0.5px solid var(--secondaryTextColor);
+            object-fit: cover;
+            height: 100%;
+        }
+    }
+}

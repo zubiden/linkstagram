@@ -1,0 +1,16 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--secondaryTextColor);
+
+    input {
+        border: 1px solid var(--inputColor);
+        border-radius: 1em;
+        padding: 1em;
+        &::placeholder {
+            color: var(--inputColor);
+        }
+    }
+}

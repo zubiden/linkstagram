@@ -1,0 +1,47 @@
+{
+    "test": "Тест",
+    "test_replace": "Тест {replace}",
+
+    "date_now": "Тільки що",
+    "date_minutes": {
+        "one": "{count} хвилину тому",
+        "some": "{count} хвилини тому",
+        "other": "{count} хвилин тому"
+    },
+    "date_hours": {
+        "one": "{count} годину тому",
+        "some": "{count} години тому",
+        "other": "{count} годин тому"
+    },
+    "date_date": "{date}",
+
+    "post_share": "Поділитись",
+    "post_new": "Новий пост",
+
+    "header_home": "Домівка",
+
+    "login_login": "Увійти",
+    "login_login_button": "Увійти",
+    "login_have_account": "Маєте акаунт?",
+    "login_no_account": "Не маєте акаунта?",
+    "login_sign_up": "Зареєструватись",
+    "login_sign_up_button": "Зареєструватись",
+    "login_field_email_label": "Електронна пошта",
+    "login_field_email_placeholder": "example@mail.com",
+    "login_field_username_label": "Ім'я користувача",
+    "login_field_username_placeholder": "alexexample...",
+    "login_field_password_label": "Пароль",
+    "login_field_password_placeholder": "Вводьте...",
+
+    "profile_edit": "Редагувати профіль",
+    "profile_following": "Читає",
+    "profile_followers": "Читачів",
+
+    "footer_about": "Про нас",
+    "footer_help": "Допомога",
+    "footer_privacy": "Приватність",
+    "footer_terms": "Умови",
+    "footer_locations": "Розташування",
+    "footer_language": "Мова",
+    "footer_copyright": "© {year} Linkstagram"
+}

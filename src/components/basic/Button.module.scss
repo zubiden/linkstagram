@@ -1,0 +1,36 @@
+.button {
+    border-radius: 0.75em;
+    padding: 0.83em 2em;
+    cursor: pointer;
+    border: none;
+    outline: none;
+
+    &.square {
+        padding: 0.83em;
+        min-width: 3.33em;
+        aspect-ratio: 1/1;
+    }
+
+    &.smallPadding {
+        padding: 0.5em 0.75em;
+    }
+
+    &.white {
+        background-color: white;
+        color: black;
+    }
+
+    &.blue {
+        background-color: var(--accentColor);
+        color: white;
+    }
+
+    &.black {
+        background-color: black;
+        color: white;
+    }
+
+    &.lightBorder {
+        border: 1px solid var(--secondaryTextColor);
+    }
+}

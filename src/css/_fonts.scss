@@ -1,0 +1,107 @@
+@font-face {
+  font-family: Poppins;
+  font-weight: 400;
+  src:  url('../fonts/Poppins-Regular/Poppins-Regular.eot');
+  src:  url('../fonts/Poppins-Regular/Poppins-Regular.woff') format('woff'),
+        url('../fonts/Poppins-Regular/Poppins-Regular.otf') format('opentype'),
+        url('../fonts/Poppins-Regular/Poppins-Regular.ttf') format('truetype'),
+        url('../fonts/Poppins-Regular/Poppins-Regular.svg') format('svg');
+}
+
+@font-face {
+  font-family: Poppins;
+  font-weight: 500;
+  src:  url('../fonts/Poppins-Medium/Poppins-Medium.eot');
+  src:  url('../fonts/Poppins-Medium/Poppins-Medium.woff') format('woff'),
+        url('../fonts/Poppins-Medium/Poppins-Medium.otf') format('opentype'),
+        url('../fonts/Poppins-Medium/Poppins-Medium.ttf') format('truetype'),
+        url('../fonts/Poppins-Medium/Poppins-Medium.svg') format('svg');
+}
+
+@font-face {
+  font-family: Poppins;
+  font-weight: 600;
+  src:  url('../fonts/Poppins-SemiBold/Poppins-SemiBold.eot');
+  src:  url('../fonts/Poppins-SemiBold/Poppins-SemiBold.woff') format('woff'),
+        url('../fonts/Poppins-SemiBold/Poppins-SemiBold.otf') format('opentype'),
+        url('../fonts/Poppins-SemiBold/Poppins-SemiBold.ttf') format('truetype'),
+        url('../fonts/Poppins-SemiBold/Poppins-SemiBold.svg') format('svg');
+}
+
+@font-face {
+  font-family: 'Icomoon';
+  src:  url('../fonts/Icomoon/Icomoon.eot');
+  src:  url('../fonts/Icomoon/Icomoon.eot') format('embedded-opentype'),
+        url('../fonts/Icomoon/Icomoon.ttf') format('truetype'),
+        url('../fonts/Icomoon/Icomoon.woff') format('woff'),
+        url('../fonts/Icomoon/Icomoon.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+}
+
+[class^='icon-'], [class*='icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Icomoon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: middle;
+
+  /* Better Font Rendering =========== */
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+  content: '\2795';
+}
+
+.icon-arrow:before {
+  content: '\27a1';
+}
+
+.icon-comments:before {
+  content: '\1f5e8';
+}
+
+.icon-cross:before {
+  content: '\274c';
+}
+
+.icon-home:before {
+  content: '\1f3e0';
+}
+
+.icon-like:before {
+  content: '\2764';
+}
+
+.icon-menu:before {
+  content: '\2261';
+}
+
+.icon-more:before {
+  content: '\22ee';
+}
+
+.icon-profile:before {
+  content: '\1f64d';
+}
+
+.icon-search:before {
+  content: '\1f50d';
+}
+
+.icon-settings:before {
+  content: '\2699';
+}
