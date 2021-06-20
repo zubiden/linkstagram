@@ -3,14 +3,15 @@ import { useHistory } from "react-router-dom";
 import { Button } from "../components/basic/Button";
 import { Input } from "../components/basic/Input";
 import { Header } from "../components/Header";
-import { selectAccount } from "../slices/profileSlice";
+import { fetchCurrentAccount, selectAccount } from "../slices/profileSlice";
 import { createAccount, login } from "../util/api";
-import { useAppSelector, useLocalization } from "../util/hooks";
+import { useAppDispatch, useAppSelector, useLocalization } from "../util/hooks";
 import styles from "./Login.module.scss";
 
 const Login: FC = () => {
     const lp = useLocalization();
     const history = useHistory();
+    const dispatch = useAppDispatch();
 
     const account = useAppSelector(selectAccount);
 
@@ -61,9 +62,13 @@ const Login: FC = () => {
                     <Button color="blue" onClick={() => {
                         // TODO validate fields
                         if(signUp) {
-                            createAccount({login: email, password, username}).then(() => history.push("/"));
+                            createAccount({login: email, password, username})
+                                .then(() => dispatch(fetchCurrentAccount()))
+                                .then(() => history.push("/"));
                         } else {
-                            login({login: email, password}).then(() => history.push("/"));
+                            login({login: email, password})
+                                .then(() => dispatch(fetchCurrentAccount()))
+                                .then(() => history.push("/"));
                         }
                     }}>
                         {lp(signUp ? "login_sign_up_button" : "login_login_button")}

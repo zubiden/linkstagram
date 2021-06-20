@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { IProfile } from "../types";
-import { fetchAccount, fetchProfiles } from "../util/api";
+import { fetchAccount, fetchProfiles, IError } from "../util/api";
 
 export interface ProfileState {
     account: IProfile | null;
@@ -27,9 +27,18 @@ export const fetchAllProfiles = createAsyncThunk(
 export const fetchCurrentAccount = createAsyncThunk(
     "profile/fetchAccount",
     async () => {
-        return fetchAccount();
+        const account = await fetchAccount();
+        if(isError(account)) {
+            return null;
+        } else {
+            return account;
+        }
     }
 );
+
+function isError(pet: IError | any): pet is IError {
+    return !!(pet as IError).error;
+}
 
 const profileSlice = createSlice({
     name: "profile",

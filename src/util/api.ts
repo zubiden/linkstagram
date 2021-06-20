@@ -85,7 +85,7 @@ export function fetchComments(post_id: number): Promise<IComment[]> {
 
 // ACCOUNT
 
-export function fetchAccount(): Promise<IProfile> {
+export function fetchAccount(): Promise<IProfile | IError> {
     return request(`${API_BASE}/account`);
 }
 

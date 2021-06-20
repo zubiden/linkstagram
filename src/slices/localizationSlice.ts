@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { LanguageValue } from "../types";
 
-export const LANGUAGE_FOLDER = "/language";
+export const LANGUAGE_FOLDER = "language";
 
 export const VALID_LANGUAGES: { [key: string]: string } = {
     "uk": "UA",

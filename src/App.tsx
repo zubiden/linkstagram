@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
     HashRouter, Redirect, Route, Switch
 } from "react-router-dom";
@@ -15,16 +14,12 @@ function App() {
     const dispatch = useAppDispatch();
     const code = useAppSelector(selectLanguageCode);
 
-    // init language
+    // on first render
     useMountEffect(() => {
         dispatch(setLanguage(code));
-    });
 
-    // on auth change - update account
-    const auth = localStorage.getItem("auth");
-    useEffect(() => {
-        dispatch(fetchCurrentAccount())
-    }, [auth, dispatch]);
+        if(localStorage.getItem("auth")) dispatch(fetchCurrentAccount());
+    });
 
     return (
         <HashRouter>
