@@ -33,7 +33,10 @@
 
     "profile_edit": "Edit profile",
     "profile_following": "Following",
-    "profile_followers": "Followers",
+    "profile_followers": {
+        "one": "Follower",
+        "other": "Followers"
+    },
 
     "footer_about": "About",
     "footer_help": "Help",
