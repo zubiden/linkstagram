@@ -8,7 +8,7 @@ import OwnProfile from "./routes/OwnProfile";
 import Profile from "./routes/Profile";
 import { selectLanguageCode, setLanguage } from "./slices/localizationSlice";
 import { fetchCurrentAccount } from "./slices/profileSlice";
-import { useAppDispatch, useAppSelector } from "./util/hooks";
+import { useAppDispatch, useAppSelector, useMountEffect } from "./util/hooks";
 
 
 function App() {
@@ -16,9 +16,9 @@ function App() {
     const code = useAppSelector(selectLanguageCode);
 
     // init language
-    useEffect(() => {
+    useMountEffect(() => {
         dispatch(setLanguage(code));
-    }, []);
+    });
 
     // on auth change - update account
     const auth = localStorage.getItem("auth");
