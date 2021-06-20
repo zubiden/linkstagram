@@ -13,7 +13,7 @@ export const ProfileInfo: FC<{profile: IProfile, own?: boolean}> = ({profile, ow
             <div className={styles.top}>
                 <div className={styles.followers}>
                     <div className={styles.number}>{profile.followers}</div>
-                    <div className={styles.smallText}>{lp("profile_followers")}</div>
+                    <div className={styles.smallText}>{lp("profile_followers", {}, profile.followers)}</div>
                 </div>
                 <Avatar url={profile.profile_photo_url} border size="5em"/>
                 <div className={styles.following}>

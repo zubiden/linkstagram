@@ -35,7 +35,11 @@
 
     "profile_edit": "Редагувати профіль",
     "profile_following": "Читає",
-    "profile_followers": "Читачів",
+    "profile_followers": {
+        "one": "Читач",
+        "some": "Читачі",
+        "other": "Читачів"
+    },
 
     "footer_about": "Про нас",
     "footer_help": "Допомога",
