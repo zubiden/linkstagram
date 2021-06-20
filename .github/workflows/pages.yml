@@ -3,8 +3,6 @@ name: gh-pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   
   workflow_dispatch:
 
@@ -26,9 +24,8 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
-          CLEAN: true # Automatically remove deleted files from the deploy branch
+          branch: gh-pages
+          folder: build
+          clean: true
