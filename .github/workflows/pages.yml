@@ -17,8 +17,6 @@ jobs:
           persist-credentials: false
 
       - name: Install and Build 🔧
-        env:
-          PUBLIC_URL: ${{ github.event.repository.name }}/
         run: |
           npm install
           npm run build
