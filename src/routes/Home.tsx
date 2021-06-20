@@ -22,8 +22,10 @@ const Home: FC = () => {
                     <PostsFeed/>
                 </div>
                 <div className={styles.right}>
-                    { isLoggedIn ? <ProfileInfo profile={account} own/> :<Button color="black" to="/login">Login</Button>}
-                    <Footer/>
+                    <div className={styles.sticky}>
+                        { isLoggedIn ? <ProfileInfo profile={account} own/> :<Button color="black" to="/login">Login</Button>}
+                        <Footer/>
+                    </div>
                 </div>
             </div>
         </div>
