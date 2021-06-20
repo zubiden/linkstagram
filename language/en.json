@@ -1,0 +1,45 @@
+{
+    "test": "test",
+    "test_replace": "Test {replace}",
+
+    "date_now": "Just now",
+    "date_minutes": {
+        "one": "{count} minute ago",
+        "other": "{count} minutes ago"
+    },
+    "date_hours": {
+        "one": "{count} hour ago",
+        "other": "{count} hours ago"
+    },
+    "date_date": "{date}",
+
+    "post_share": "Share",
+    "post_new": "New post",
+
+    "header_home": "Home",
+
+    "login_login": "Log In",
+    "login_login_button": "Log in",
+    "login_have_account": "Have an account?",
+    "login_no_account": "Don't have an account?",
+    "login_sign_up": "Sign Up",
+    "login_sign_up_button": "Sign up",
+    "login_field_email_label": "Email",
+    "login_field_email_placeholder": "example@mail.com",
+    "login_field_username_label": "User Name",
+    "login_field_username_placeholder": "alexexample...",
+    "login_field_password_label": "Password",
+    "login_field_password_placeholder": "Type in...",
+
+    "profile_edit": "Edit profile",
+    "profile_following": "Following",
+    "profile_followers": "Followers",
+
+    "footer_about": "About",
+    "footer_help": "Help",
+    "footer_privacy": "Privacy",
+    "footer_terms": "Terms",
+    "footer_locations": "Locations",
+    "footer_language": "Language",
+    "footer_copyright": "© {year} Linkstagram"
+}
