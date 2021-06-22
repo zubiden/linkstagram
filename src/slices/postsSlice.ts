@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { IPost } from "../types";
-import { fetchPosts, fetchUserPosts } from "../util/api";
+import { createPost, deletePost, fetchPost, fetchPosts, fetchUserPosts, IPostCreationParameters, removeLike, setLike } from "../util/api";
 
 export interface PostsState {
     loadedPosts: IPost[];
@@ -17,11 +17,7 @@ const initialState: PostsState = {
 
 export const fetchAllPosts = createAsyncThunk(
     "posts/fetchAllPosts",
-    async (username: string | undefined, thunkAPI) => {
-        if(selectCurrentPostsUsername(thunkAPI.getState() as RootState) === username) {
-            return selectLoadedPosts(thunkAPI.getState() as RootState);// don't fetch, if current user posts already loaded
-        } 
-        
+    async (username: string | null | undefined, thunkAPI) => {        
         if(username) {
             thunkAPI.dispatch(setCurrentPostsUsername(username));
             return fetchUserPosts(username);
@@ -30,7 +26,49 @@ export const fetchAllPosts = createAsyncThunk(
             return fetchPosts();
         }
     }
-  );
+);
+
+export const refetchPost = createAsyncThunk(
+    "posts/fetchPost",
+    async (post_id: number, thunkAPI) => {
+        return fetchPost(post_id);
+    }
+);
+
+export const likePost = createAsyncThunk(
+    "posts/like",
+    async (post_id: number, thunkAPI) => {
+        await setLike(post_id)
+        thunkAPI.dispatch(refetchPost(post_id));
+    }
+);
+
+export const dislikePost = createAsyncThunk(
+    "posts/dislike",
+    async (post_id: number, thunkAPI) => {
+        await removeLike(post_id);
+        thunkAPI.dispatch(refetchPost(post_id));
+    }
+);
+
+export const deleteOwnPost = createAsyncThunk(
+    "posts/delete",
+    async (post_id: number, thunkAPI) => {
+        await deletePost(post_id);
+        thunkAPI.dispatch(removePost(post_id));
+    }
+);
+
+export const createOwnPost = createAsyncThunk(
+    "posts/post",
+    async (params: IPostCreationParameters, thunkAPI) => {
+        await createPost(params);
+
+        // FIXME: post creation throws 500, but creates post, so best way to show it, to refetch first page
+        // btw, should I open Home/Profile after new post, or keep user on the same user page?
+        thunkAPI.dispatch(fetchAllPosts());
+    }
+);
 
 const postsSlice = createSlice({
     name: "posts",
@@ -38,10 +76,14 @@ const postsSlice = createSlice({
     reducers: {
         setCurrentPostsUsername(state, action: PayloadAction<string | null>) {
             state.currentPostsUsername = action.payload
+        },
+        removePost(state, action: PayloadAction<number>) {
+            state.loadedPosts = state.loadedPosts.filter(post => post.id !== action.payload);
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchAllPosts.pending, (state) => {
+        builder
+        .addCase(fetchAllPosts.pending, (state) => {
             state.status = "loading";
             state.loadedPosts = [];
         }).addCase(fetchAllPosts.fulfilled, (state, action) => {
@@ -49,7 +91,13 @@ const postsSlice = createSlice({
             state.loadedPosts = action.payload;
         }).addCase(fetchAllPosts.rejected, (state) => {
             state.status = "failed";
-        });
+        })
+        .addCase(refetchPost.fulfilled, (state, action) => {
+            const id = state.loadedPosts.findIndex(post => post.id === action.payload.id);
+            if(id !== -1) { // post is currently in state
+                state.loadedPosts[id] = action.payload;
+            }
+        })
     },
 })
 
@@ -57,7 +105,7 @@ const postsSlice = createSlice({
 export default postsSlice.reducer;
 
 // Actions
-const { setCurrentPostsUsername } = postsSlice.actions;
+const { setCurrentPostsUsername, removePost } = postsSlice.actions;
 
 //Selectors
 

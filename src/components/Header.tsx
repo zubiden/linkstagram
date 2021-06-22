@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { FC, useState } from "react";
 import { selectLanguageCode, setLanguage, VALID_LANGUAGES } from "../slices/localizationSlice";
 import { selectAccount, selectIsLoggedIn } from "../slices/profileSlice";
+import { IProfile } from "../types";
 import { useAppDispatch, useAppSelector, useLocalization } from "../util/hooks";
 import { Avatar } from "./basic/Avatar";
 import { Button } from "./basic/Button";
@@ -16,7 +17,7 @@ export const Header: FC<HeaderParameters> = ({home = false, profile = false}) =>
     const dispatch = useAppDispatch();
 
     const isLoggedIn = useAppSelector(selectIsLoggedIn);
-    const account = useAppSelector(selectAccount);
+    const account = useAppSelector(selectAccount) as IProfile;
 
     const lp = useLocalization();
     const langCode = useAppSelector(selectLanguageCode);
@@ -43,7 +44,7 @@ export const Header: FC<HeaderParameters> = ({home = false, profile = false}) =>
                     )}
                 </div>
             </Button>
-            {profile && isLoggedIn && account?.profile_photo_url && <Avatar url={account.profile_photo_url}/>}
+            {profile && isLoggedIn && <Avatar url={account.profile_photo_url} size="2.5em"/>}
         </header>
         <div className={styles.reserver}/>
         </>

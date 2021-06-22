@@ -1,4 +1,4 @@
-import { IComment, IPhotosAttribute, IPost, IProfile } from "../types";
+import { IComment, IImage, IPhotosAttribute, IPost, IProfile } from "../types";
 
 export const API_BASE = "https://linkstagram-api.ga";
 
@@ -29,8 +29,17 @@ export interface ILoginParameters {
 }
 
 export interface IPostCreationParameters {
-    description:       string;
+    description?:       string;
     photos_attributes: IPhotosAttribute[];
+}
+
+export interface IProfileUpdateParameters {
+    username?:          string;
+    description?:       string;
+    first_name?:        string;
+    job_title?:         string;
+    last_name?:         string;
+    profile_photo?:     IImage;
 }
 
 // AUTH
@@ -89,7 +98,7 @@ export function fetchAccount(): Promise<IProfile | IError> {
     return request(`${API_BASE}/account`);
 }
 
-export function editAccount(account: IProfile): Promise<IProfile> {
+export function editAccount(account: IProfileUpdateParameters): Promise<IProfile | IError> {
     return request(`${API_BASE}/account`, "PATCH", {account});
 }
 
@@ -117,8 +126,8 @@ export function fetchPost(id: number): Promise<IPost> {
     return request(`${API_BASE}/posts/${id}`);
 }
 
-export function fetchPosts(): Promise<IPost[]> {
-    return request(`${API_BASE}/posts`);
+export function fetchPosts(page: number = 1): Promise<IPost[]> {
+    return request(`${API_BASE}/posts?page=${page}`);
 }
 
 export function fetchUserPosts(username: string): Promise<IPost[]> {
@@ -127,8 +136,8 @@ export function fetchUserPosts(username: string): Promise<IPost[]> {
 
 // PROFILES
 
-export function fetchProfiles(): Promise<IProfile[]> {
-    return request(`${API_BASE}/profiles`);
+export function fetchProfiles(page: number = 1): Promise<IProfile[]> {
+    return request(`${API_BASE}/profiles?page=${page}`);
 }
 
 export function fetchProfile(username: string): Promise<IProfile> {
@@ -154,5 +163,8 @@ function request(url: string, method: "GET" | "POST" | "PATCH" | "DELETE" = "GET
     if(auth) {
         options.headers.set("Authorization", "Bearer "+ auth);
     }
-    return fetch(url, options).then(res => res.json());
+    return fetch(url, options).then(res => res.text()).then(text => {
+        if(text.length === 0) return {}
+        return JSON.parse(text);
+    });
 }

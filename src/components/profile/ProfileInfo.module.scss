@@ -13,6 +13,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            .smallText {
+                color: var(--secondaryTextColorB);
+                font-weight: 500;
+            }
         }
 
     }

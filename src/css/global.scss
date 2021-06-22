@@ -14,12 +14,13 @@ html {
     // element variables
     --primaryTextColor: var(--black);
     --secondaryTextColor: var(--darkGrey);
+    --secondaryTextColorB: var(--grey);
     --invertedTextColor: var(--white);
     --accentColor: var(--blue);
     --accentSecondaryColor: #74EDF2;
 
     --successColor: #00f543;
-    --errorColor: #ff5d5c;
+    --dangerColor: #ff5d5c;
 
     --likeColor: var(--red);
     --iconColor: var(--grey);
@@ -28,6 +29,8 @@ html {
     --pageBackgroundColor: var(--lightGrey);
 
     --inputColor: var(--grey);
+    --modalBackdrop: rgba(1,1,1,0.4);
+    --fileInputBackground: var(--grey);
 
     @media (prefers-color-scheme: dark) {
         // dark mode?
@@ -36,7 +39,7 @@ html {
 
 #app {
     min-height: 100vh;
-    width: 100vw;
+    //width: 100vw;
     background-color: var(--pageBackgroundColor);
 }
 

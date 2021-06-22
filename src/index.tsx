@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 import { Provider } from 'react-redux';
 import App from './App';
 import "./css/global.scss";
 import * as serviceWorker from './serviceWorker';
 import store from './store';
-
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +15,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('app')
 );
+
+Modal.setAppElement('#app');
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -1,10 +1,11 @@
 .post {
     display: flex;
     flex-direction: column;
+    margin-bottom: 3rem;
 
     .header {
         display: flex;
-        margin: 1em 0em;
+        margin-bottom: 1em;
     
         .info {
             display: flex;
@@ -27,6 +28,7 @@
 
         .more {
             color: var(--secondaryTextColor);
+            cursor: pointer;
         }
     }
 
@@ -37,6 +39,7 @@
         .square {
             position: relative;
             overflow: hidden;
+            margin-bottom: 1.25em;
           
             &:before {
               content: '';
@@ -57,7 +60,6 @@
 
         .description {
             display: -webkit-box;
-            margin-top: 1.25em;
 
             color: var(--secondaryTextColor);
             max-height: 4.5em;
@@ -73,9 +75,9 @@
         display: flex;
         margin-top: 1em;
         .iconText {
+            cursor: pointer;
             margin-right: 3em;
             :global(.icon) {
-                cursor: pointer;
                 color: var(--iconColor);
             }
 

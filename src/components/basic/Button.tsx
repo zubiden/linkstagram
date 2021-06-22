@@ -3,14 +3,13 @@ import { FC } from "react";
 import { useHistory } from "react-router-dom";
 import styles from "./Button.module.scss";
 
-type ButtonParameters = {
+interface ButtonParameters extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     color?: "blue" | "black" | "white"
     lightBorder?: boolean
     square?: boolean
     smallPadding?: boolean
     className?: string
     to?: string
-    onClick?: Function
     [key: string]: any
 }
 
@@ -18,10 +17,12 @@ export const Button: FC<ButtonParameters> = (
     {
         color = "white",
         lightBorder = false,
-        square = false, to,
-        onClick, className,
+        square = false, 
+        to,
+        className,
         children,
         smallPadding = false,
+        onClick,
         ...otherArgs
     }) => {
     const history = useHistory();

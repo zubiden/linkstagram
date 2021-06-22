@@ -1,0 +1,41 @@
+.newPost {
+    :global(.uppy-Root) {
+        padding: 0;
+        border: 0;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        cursor: pointer;
+
+        :global(.uppy-DragDrop-inner) {
+            position: relative;
+            padding-bottom: 66%;
+            background-color: var(--fileInputBackground);
+            
+            :global(.uppy-c-icon) {
+                display: none;
+            }
+
+            :global(.uppy-DragDrop-label) {
+                width: 100%;
+                color: var(--invertedTextColor);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+
+    .description {
+        margin: 2rem 0;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 0.75rem;
+
+        * {
+            flex: 1;
+        }
+    }
+}

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { IProfile } from "../types";
-import { fetchAccount, fetchProfiles, IError } from "../util/api";
+import { editAccount, fetchAccount, fetchProfiles, IError, IProfileUpdateParameters } from "../util/api";
+import { fetchAllPosts, selectCurrentPostsUsername } from "./postsSlice";
 
 export interface ProfileState {
     account: IProfile | null;
@@ -36,8 +37,21 @@ export const fetchCurrentAccount = createAsyncThunk(
     }
 );
 
-function isError(pet: IError | any): pet is IError {
-    return !!(pet as IError).error;
+export const updateAccount = createAsyncThunk(
+    "profile/updateAccount",
+    async (newInfo: IProfileUpdateParameters, thunkAPI) => {
+        const res = await editAccount(newInfo);
+        if("error" in res) {
+            throw Error("Failed to update account")
+        } else {
+            thunkAPI.dispatch(fetchAllPosts(selectCurrentPostsUsername(thunkAPI.getState() as RootState)));
+            return res;
+        }
+    }
+);
+
+function isError(res: any): res is IError {
+    return !!(res as IError).error;
 }
 
 const profileSlice = createSlice({
@@ -74,6 +88,9 @@ const profileSlice = createSlice({
         }).addCase(fetchCurrentAccount.rejected, (state) => {
             state.accountFetchStatus = "failed";
             state.account = null;
+        })
+        .addCase(updateAccount.fulfilled, (state, action) => {
+            state.account = action.payload
         })
     },
 })

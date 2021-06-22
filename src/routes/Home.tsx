@@ -3,7 +3,7 @@ import { Button } from "../components/basic/Button";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { PostsFeed } from "../components/post/PostsFeed";
-import { ProfileInfo } from "../components/ProfileInfo";
+import { ProfileInfo } from "../components/profile/ProfileInfo";
 import { StoriesSlider } from "../components/StoriesSlider";
 import { selectAccount, selectIsLoggedIn } from "../slices/profileSlice";
 import { IProfile } from "../types";

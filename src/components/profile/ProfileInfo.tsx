@@ -1,12 +1,16 @@
-import { FC } from "react";
-import { IProfile } from "../types";
-import { useLocalization } from "../util/hooks";
-import { Avatar } from "./basic/Avatar";
-import { Button } from "./basic/Button";
+import { FC, useState } from "react";
+import { IProfile } from "../../types";
+import { useLocalization } from "../../util/hooks";
+import { Avatar } from "../basic/Avatar";
+import { Button } from "../basic/Button";
+import { NewPost } from "../post/NewPost";
+import { ProfileEdit } from "./ProfileEdit";
 import styles from "./ProfileInfo.module.scss";
 
 export const ProfileInfo: FC<{profile: IProfile, own?: boolean}> = ({profile, own = false}) => {
     const lp = useLocalization();
+    const [isNewPostOpened, setNewPostOpened] = useState(false);
+    const [isProfileEditOpened, setProfileEditOpened] = useState(false);
 
     return (
         <div className={styles.profileInfo}>
@@ -29,10 +33,12 @@ export const ProfileInfo: FC<{profile: IProfile, own?: boolean}> = ({profile, ow
                     {profile.description}
                 </div>
                 {own && <div className={styles.actionButtons}>
-                    <Button smallPadding>{lp("profile_edit")}</Button>
-                    <Button smallPadding color="blue">{lp("post_new")}</Button>
+                    <Button smallPadding onClick={() => setProfileEditOpened(true)}>{lp("profile_edit")}</Button>
+                    <Button smallPadding color="blue" onClick={() => setNewPostOpened(true)}>{lp("post_new")}</Button>
                 </div>}
             </div>
+            <NewPost opened={isNewPostOpened} onRequestClose={() => setNewPostOpened(false)}/>
+            <ProfileEdit opened={isProfileEditOpened} onRequestClose={() => setProfileEditOpened(false)} />
         </div>
     )
 }

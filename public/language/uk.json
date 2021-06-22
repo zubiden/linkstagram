@@ -2,6 +2,10 @@
     "test": "Тест",
     "test_replace": "Тест {replace}",
 
+    "general_cancel": "Скасувати",
+    "general_logout": "Вийти",
+    "general_save": "Зберегти",
+
     "date_now": "Тільки що",
     "date_minutes": {
         "one": "{count} хвилину тому",
@@ -17,6 +21,10 @@
 
     "post_share": "Поділитись",
     "post_new": "Новий пост",
+    "post_new_description": "Опис",
+    "post_new_description_placeholder": "Опис...",
+    "post_new_file": "Завантажуйте фото з вашої бібліотеки",
+    "post_new_post": "Опублікувати",
 
     "header_home": "Домівка",
 
@@ -33,13 +41,22 @@
     "login_field_password_label": "Пароль",
     "login_field_password_placeholder": "Вводьте...",
 
-    "profile_edit": "Редагувати профіль",
     "profile_following": "Читає",
     "profile_followers": {
         "one": "Читач",
         "some": "Читачі",
         "other": "Читачів"
     },
+    "profile_edit": "Редагувати профіль",
+    "profile_edit_title": "Інформація",
+    "profile_edit_first_name": "Ім'я",
+    "profile_edit_first_name_placeholder": "наприклад: Іван",
+    "profile_edit_second_name": "Прізвище",
+    "profile_edit_second_name_placeholder": "наприклад: Мельник",
+    "profile_edit_job_title": "Посада",
+    "profile_edit_job_title_placeholder": "наприклад: Дизайнер",
+    "profile_edit_description": "Опис",
+    "profile_edit_description_placeholder": "Опис (не обов'язково)",
 
     "footer_about": "Про нас",
     "footer_help": "Допомога",
