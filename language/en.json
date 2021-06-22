@@ -2,6 +2,10 @@
     "test": "test",
     "test_replace": "Test {replace}",
 
+    "general_cancel": "Cancel",
+    "general_logout": "Log out",
+    "general_save": "Save",
+
     "date_now": "Just now",
     "date_minutes": {
         "one": "{count} minute ago",
@@ -15,6 +19,10 @@
 
     "post_share": "Share",
     "post_new": "New post",
+    "post_new_description": "Description",
+    "post_new_description_placeholder": "Description...",
+    "post_new_file": "Upload any photos from your library",
+    "post_new_post": "Post",
 
     "header_home": "Home",
 
@@ -31,12 +39,21 @@
     "login_field_password_label": "Password",
     "login_field_password_placeholder": "Type in...",
 
-    "profile_edit": "Edit profile",
     "profile_following": "Following",
     "profile_followers": {
         "one": "Follower",
         "other": "Followers"
     },
+    "profile_edit": "Edit profile",
+    "profile_edit_title": "Profile information",
+    "profile_edit_first_name": "First Name",
+    "profile_edit_first_name_placeholder": "eg. John",
+    "profile_edit_second_name": "Second Name",
+    "profile_edit_second_name_placeholder": "eg. Doe",
+    "profile_edit_job_title": "Job Title",
+    "profile_edit_job_title_placeholder": "eg. Designer",
+    "profile_edit_description": "Description",
+    "profile_edit_description_placeholder": "Description (optional)",
 
     "footer_about": "About",
     "footer_help": "Help",
