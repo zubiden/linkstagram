@@ -56,7 +56,7 @@ export const NewPost: FC<NewPostParameters> = ({ opened = false, onRequestClose 
             <div className={styles.buttons}>
                 <Button lightBorder onClick={onRequestClose}>{lp("general_cancel")}</Button>
                 <Button color="blue" onClick={async ev => {
-                    // TODO: not working, returns 500, but post is saved
+                    // TODO separate logic into util, preview image
                     const result = await uppy.upload()
                     console.log(result);
                     if (result.successful.length) {
@@ -65,7 +65,7 @@ export const NewPost: FC<NewPostParameters> = ({ opened = false, onRequestClose 
                         const meta = result.successful[0].meta;
                         const key: string = (meta as any).key;
                         const storage = key.split("/")[0];
-                        const id = key.split("/")[1].split(".")[0];
+                        const id = key.split("/")[1];
                         const params: IPostCreationParameters = {
                             description,
                             photos_attributes: [
