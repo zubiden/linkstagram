@@ -3,8 +3,11 @@
     "test_replace": "Test {replace}",
 
     "general_cancel": "Cancel",
+    "general_login": "Log in",
     "general_logout": "Log out",
     "general_save": "Save",
+    "general_loading": "Loading...",
+    "general_error_loading": "Failed to load",
 
     "date_now": "Just now",
     "date_minutes": {
@@ -23,6 +26,8 @@
     "post_new_description_placeholder": "Description...",
     "post_new_file": "Upload any photos from your library",
     "post_new_post": "Post",
+    
+    "feed_no_posts": "No posts",
 
     "header_home": "Home",
 
@@ -39,6 +44,18 @@
     "login_field_password_label": "Password",
     "login_field_password_placeholder": "Type in...",
 
+    "login_validation_required": "Required field",
+    "login_validation_email_invalid": "Invalid email",
+    "login_validation_min_length": {
+        "one": "Minimum length: {count} symbol",
+        "other": "Minimum length: {count} symbols"
+    },
+    "login_validation_max_length": {
+        "one": "Maximum length: {count} symbol",
+        "other": "Maximum length: {count} symbols"
+    },
+    "login_validation_username_taken": "Username is taken",
+
     "profile_following": "Following",
     "profile_followers": {
         "one": "Follower",
@@ -54,6 +71,7 @@
     "profile_edit_job_title_placeholder": "eg. Designer",
     "profile_edit_description": "Description",
     "profile_edit_description_placeholder": "Description (optional)",
+    "profile_edit_photo": "Choose new photo",
 
     "footer_about": "About",
     "footer_help": "Help",
