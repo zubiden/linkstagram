@@ -1,10 +1,7 @@
-import {
-    HashRouter, Redirect, Route, Switch
-} from "react-router-dom";
-import Home from "./routes/Home";
-import Login from "./routes/Login";
-import OwnProfile from "./routes/OwnProfile";
-import Profile from "./routes/Profile";
+import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
+import Home from "./routes/home/Home";
+import Login from "./routes/login/Login";
+import Profile from "./routes/profile/Profile";
 import { selectLanguageCode, setLanguage } from "./slices/localizationSlice";
 import { fetchCurrentAccount } from "./slices/profileSlice";
 import { useAppDispatch, useAppSelector, useMountEffect } from "./util/hooks";
@@ -24,14 +21,14 @@ function App() {
     return (
         <HashRouter>
             <Switch>
-                <Route path="/login">
+                <Route exact path="/login">
                     <Login />
                 </Route>
-                <Route path="/profile/:username">
+                <Route exact path="/profile/:username">
                     <Profile />
                 </Route>
                 <Route exact path="/profile">
-                    <OwnProfile />
+                    <Profile />
                 </Route>
                 <Route exact path="/">
                     <Home />

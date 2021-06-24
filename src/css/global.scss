@@ -29,7 +29,7 @@ html {
     --pageBackgroundColor: var(--lightGrey);
 
     --inputColor: var(--grey);
-    --modalBackdrop: rgba(1,1,1,0.4);
+    --backdropColor: rgba(1,1,1,0.4);
     --fileInputBackground: var(--grey);
 
     @media (prefers-color-scheme: dark) {
@@ -37,10 +37,14 @@ html {
     }
 }
 
+html, body {
+    height: 100%;
+}
+
 #app {
-    min-height: 100vh;
-    //width: 100vw;
+    min-height: 100%;
     background-color: var(--pageBackgroundColor);
+    color: var(--primaryTextColor);
 }
 
 img[src=""],

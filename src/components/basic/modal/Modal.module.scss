@@ -1,0 +1,41 @@
+@import "../../../css/mixins";
+
+:global(.ReactModal__Body--open) {
+    overflow: hidden;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--backdropColor);
+    z-index: 9999;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 300px;
+    min-height: 300px;
+    max-height: 90%;
+    background-color: var(--backgroundColor);
+    border-radius: 2rem;
+    padding: 3rem;
+    overflow-y: auto;
+
+    @include mobile {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        max-height: 100%;
+        transform: none;
+        border-radius: 0;
+
+        padding: 1rem;
+    }
+}

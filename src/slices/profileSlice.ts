@@ -21,7 +21,21 @@ const initialState: ProfileState = {
 export const fetchAllProfiles = createAsyncThunk(
     "profile/fetchAllProfiles",
     async () => {
-        return fetchProfiles();
+        // DANGER! Possibly, a lot of requests if Linkstagram decides to get several million new users
+        let notEnd = true;
+        let profiles: IProfile[] = [];
+        let currentPage = 1;
+        while(notEnd) {
+            const downloaded = await fetchProfiles(currentPage);
+
+            if(downloaded.length && !profiles.find(profile => profile.username === downloaded[0].username)) {
+                profiles.push(...downloaded);
+            } else {
+                notEnd = false;
+            }
+            currentPage++;
+        }
+        return profiles;
     }
 );
 
@@ -50,6 +64,15 @@ export const updateAccount = createAsyncThunk(
     }
 );
 
+export const logout = createAsyncThunk(
+    "profile/logount",
+    async (arg, thunkAPI) => {
+        localStorage.removeItem("auth");
+        thunkAPI.dispatch(clearCurrentAccount());
+        thunkAPI.dispatch(fetchAllPosts()); // refetch posts to remove likes
+    }
+);
+
 function isError(res: any): res is IError {
     return !!(res as IError).error;
 }
@@ -58,9 +81,8 @@ const profileSlice = createSlice({
     name: "profile",
     initialState,
     reducers: {
-        logout(state) {
+        clearCurrentAccount(state) {
             state.account = null;
-            localStorage.removeItem("auth");
         },
 
         resetAccountFetchStatus(state) {
@@ -88,6 +110,7 @@ const profileSlice = createSlice({
         }).addCase(fetchCurrentAccount.rejected, (state) => {
             state.accountFetchStatus = "failed";
             state.account = null;
+            localStorage.removeItem("auth"); // Should I do this here? IDK what place is better
         })
         .addCase(updateAccount.fulfilled, (state, action) => {
             state.account = action.payload
@@ -99,7 +122,7 @@ const profileSlice = createSlice({
 export default profileSlice.reducer;
 
 // Actions
-export const { logout, resetAccountFetchStatus } = profileSlice.actions;
+export const { clearCurrentAccount, resetAccountFetchStatus } = profileSlice.actions;
 
 // Selectors
 export const selectProfiles = (state: RootState) => state.profile.allProfiles;
@@ -107,3 +130,4 @@ export const selectProfilesFetchStatus = (state: RootState) => state.profile.pro
 export const selectAccount = (state: RootState) => state.profile.account;
 export const selectAccountFetchStatus = (state: RootState) => state.profile.accountFetchStatus;
 export const selectIsLoggedIn = (state: RootState) => !!state.profile.account;
+export const selectIsLoggingIn = (state: RootState) => state.profile.accountFetchStatus === "loading";

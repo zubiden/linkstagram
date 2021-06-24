@@ -1,0 +1,84 @@
+@import "../../css/mixins";
+
+.login {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(var(--vh100));
+
+    .content {
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+        align-items: stretch;
+        @include desktop {
+            gap: 4rem;
+        }
+
+        .presentation {
+            font-size: 2rem;
+
+            @include mobileAndTablet {
+                display: none;
+            }
+        }
+
+        .authPane {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            margin-bottom: 2rem;
+
+            form {
+                display: flex;
+                flex-direction: column;
+                @include mobileAndTablet {
+                    flex-grow: 1;
+                }
+            }
+
+            .title {
+                font-size: 3rem;
+                font-weight: 700;
+                margin-bottom: 3rem;
+            }
+
+            .input {
+                margin-bottom: 1rem;
+                min-width: 360px;
+            }
+
+            .button {
+                margin: 1rem 0;
+                width: 100%;
+            }
+
+            .error {
+                color: var(--dangerColor);
+                font-size: 0.75rem;
+            }
+
+            .mobileSeparator {
+                @include mobileAndTablet {
+                    flex-grow: 1;
+                }
+            }
+
+            .switch {
+                color: var(--secondaryTextColor);
+                font-size: 0.75rem;
+                align-self: center;
+
+                .inlineSwitch {
+                    color: var(--blue);
+                    cursor: pointer;
+                    margin-left: 1em;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}

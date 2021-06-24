@@ -17,14 +17,23 @@ const initialState: PostsState = {
 
 export const fetchAllPosts = createAsyncThunk(
     "posts/fetchAllPosts",
-    async (username: string | null | undefined, thunkAPI) => {        
-        if(username) {
-            thunkAPI.dispatch(setCurrentPostsUsername(username));
-            return fetchUserPosts(username);
-        } else {
-            thunkAPI.dispatch(setCurrentPostsUsername(null));
-            return fetchPosts();
+    async (username: string | null | undefined, thunkAPI) => {
+        thunkAPI.dispatch(setCurrentPostsUsername(username || null));
+        // DANGER! Possibly, a lot of requests if Linkstagram decides to get several million new posts
+        let notEnd = true;
+        let posts: IPost[] = [];
+        let currentPage = 1;
+        while(notEnd) {
+            const downloaded = await (!!username ? fetchUserPosts(username, currentPage) : fetchPosts(currentPage));
+            if(downloaded.length && !posts.find(post => post.id === downloaded[0].id)) {
+                posts.push(...downloaded);
+            } else {
+                notEnd = false;
+            }
+            currentPage++;
         }
+        return posts;  
+
     }
 );
 
@@ -64,9 +73,8 @@ export const createOwnPost = createAsyncThunk(
     async (params: IPostCreationParameters, thunkAPI) => {
         await createPost(params);
 
-        // FIXME: post creation throws 500, but creates post, so best way to show it, to refetch first page
-        // btw, should I open Home/Profile after new post, or keep user on the same user page?
-        thunkAPI.dispatch(fetchAllPosts());
+        // TODO: refractor?
+        thunkAPI.dispatch(fetchAllPosts(selectCurrentPostsUsername(thunkAPI.getState() as RootState)));
     }
 );
 

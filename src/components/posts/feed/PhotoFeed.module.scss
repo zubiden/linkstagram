@@ -1,0 +1,13 @@
+.photoFeed {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+
+    .square {
+        position: relative;
+        padding-bottom : 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}

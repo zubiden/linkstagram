@@ -1,0 +1,40 @@
+@import "../../css/mixins";
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(var(--vh100));
+
+    .content {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            max-width: 560px;
+
+            @include mobileAndTablet {
+                padding: 0 1rem;
+            }
+        }
+
+        .right {
+            @include mobileAndTablet {
+                display: none;
+            }
+
+            .sticky {
+                display: flex;
+                flex-direction: column;
+                margin-left: 4.5em;
+                align-items: center;
+                position: sticky;
+                top: 100px;
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+.newPost {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    .input {
+        min-height: 200px;
+    }
+
+    .description {
+        margin: 2rem 0;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 0.75rem;
+
+        * {
+            flex: 1;
+        }
+    }
+}

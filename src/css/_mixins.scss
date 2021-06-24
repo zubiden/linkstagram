@@ -1,11 +1,26 @@
+$TABLET_WIDTH: 512px;
+$DESKTOP_WIDTH: 1024px;
+
 @mixin mobile {
-    @media only screen and (max-width: 991.98px) {
+    @media only screen and (max-width: $TABLET_WIDTH - 0.01px) {
+        @content;
+    }
+}
+
+@mixin mobileAndTablet {
+    @media only screen and (max-width: $DESKTOP_WIDTH - 0.01px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media only screen and (min-width: $TABLET_WIDTH) and (max-width: $DESKTOP_WIDTH - 0.01px) {
         @content;
     }
 }
 
 @mixin desktop {
-    @media (min-width: 992px) {
+    @media (min-width: $DESKTOP_WIDTH) {
         @content;
     }
 }

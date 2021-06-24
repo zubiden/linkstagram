@@ -3,18 +3,21 @@
     "test_replace": "Тест {replace}",
 
     "general_cancel": "Скасувати",
+    "general_login": "Увійти",
     "general_logout": "Вийти",
     "general_save": "Зберегти",
+    "general_loading": "Завантаження...",
+    "general_error_loading": "Не вдалося завантажити",
 
     "date_now": "Тільки що",
     "date_minutes": {
         "one": "{count} хвилину тому",
-        "some": "{count} хвилини тому",
+        "few": "{count} хвилини тому",
         "other": "{count} хвилин тому"
     },
     "date_hours": {
         "one": "{count} годину тому",
-        "some": "{count} години тому",
+        "few": "{count} години тому",
         "other": "{count} годин тому"
     },
     "date_date": "{date}",
@@ -25,6 +28,8 @@
     "post_new_description_placeholder": "Опис...",
     "post_new_file": "Завантажуйте фото з вашої бібліотеки",
     "post_new_post": "Опублікувати",
+
+    "feed_no_posts": "Немає постів",
 
     "header_home": "Домівка",
 
@@ -41,10 +46,24 @@
     "login_field_password_label": "Пароль",
     "login_field_password_placeholder": "Вводьте...",
 
+    "login_validation_required": "Обов'язкове поле",
+    "login_validation_email_invalid": "Неправильний формат пошти",
+    "login_validation_min_length": {
+        "one": "Мінімальна довжина: {count} символ",
+        "few": "Мінімальна довжина: {count} символи",
+        "other": "Мінімальна довжина: {count} символів"
+    },
+    "login_validation_max_length": {
+        "one": "Максимальна довжина: {count} символ",
+        "few": "Максимальна довжина: {count} символи",
+        "other": "Максимальна довжина: {count} символів"
+    },
+    "login_validation_username_taken": "Ім'я користувача зайнято",
+
     "profile_following": "Читає",
     "profile_followers": {
         "one": "Читач",
-        "some": "Читачі",
+        "few": "Читачі",
         "other": "Читачів"
     },
     "profile_edit": "Редагувати профіль",
@@ -57,6 +76,7 @@
     "profile_edit_job_title_placeholder": "наприклад: Дизайнер",
     "profile_edit_description": "Опис",
     "profile_edit_description_placeholder": "Опис (не обов'язково)",
+    "profile_edit_photo": "Оберіть нове фото",
 
     "footer_about": "Про нас",
     "footer_help": "Допомога",

@@ -29,22 +29,22 @@ export interface ILoginParameters {
 }
 
 export interface IPostCreationParameters {
-    description?:       string;
+    description?: string;
     photos_attributes: IPhotosAttribute[];
 }
 
 export interface IProfileUpdateParameters {
-    username?:          string;
-    description?:       string;
-    first_name?:        string;
-    job_title?:         string;
-    last_name?:         string;
-    profile_photo?:     IImage;
+    username?: string;
+    description?: string;
+    first_name?: string;
+    job_title?: string;
+    last_name?: string;
+    profile_photo?: IImage;
 }
 
 // AUTH
 
-export function createAccount(data: IRegistrationParameters): Promise<ILoginError | ISuccess> {
+export const createAccount = (data: IRegistrationParameters): Promise<ILoginError | ISuccess> => {
     return fetch(`${API_BASE}/create-account`, {
         method: "POST",
         body: JSON.stringify(data),
@@ -54,7 +54,7 @@ export function createAccount(data: IRegistrationParameters): Promise<ILoginErro
     }).then(res => {
         const headers = res.headers;
         const auth = headers.get("authorization");
-        if(auth) {
+        if (auth) {
             localStorage.setItem("auth", auth);
         } else {
             localStorage.removeItem("auth"); // login error, clear previous auth
@@ -63,7 +63,7 @@ export function createAccount(data: IRegistrationParameters): Promise<ILoginErro
     });
 }
 
-export function login(data: ILoginParameters): Promise<ILoginError | ISuccess> {
+export const login = (data: ILoginParameters): Promise<ILoginError | ISuccess> => {
     return fetch(`${API_BASE}/login`, {
         method: "POST",
         body: JSON.stringify(data),
@@ -73,7 +73,7 @@ export function login(data: ILoginParameters): Promise<ILoginError | ISuccess> {
     }).then(res => {
         const headers = res.headers;
         const auth = headers.get("authorization");
-        if(auth) {
+        if (auth) {
             localStorage.setItem("auth", auth);
         } else {
             localStorage.removeItem("auth"); // login error, clear previous auth
@@ -84,69 +84,69 @@ export function login(data: ILoginParameters): Promise<ILoginError | ISuccess> {
 
 // COMMENTS
 
-export function leaveComment(post_id: number, message: string): Promise<IComment> {
-    return request(`${API_BASE}/posts/${post_id}/comments`, "POST", {message});
+export const leaveComment = (post_id: number, message: string): Promise<IComment> => {
+    return request(`${API_BASE}/posts/${post_id}/comments`, "POST", { message });
 }
 
-export function fetchComments(post_id: number): Promise<IComment[]> {
+export const fetchComments = (post_id: number): Promise<IComment[]> => {
     return request(`${API_BASE}/posts/${post_id}/comments`);
 }
 
 // ACCOUNT
 
-export function fetchAccount(): Promise<IProfile | IError> {
+export const fetchAccount = (): Promise<IProfile | IError> => {
     return request(`${API_BASE}/account`);
 }
 
-export function editAccount(account: IProfileUpdateParameters): Promise<IProfile | IError> {
-    return request(`${API_BASE}/account`, "PATCH", {account});
+export const editAccount = (account: IProfileUpdateParameters): Promise<IProfile | IError> => {
+    return request(`${API_BASE}/account`, "PATCH", { account });
 }
 
 // LIKES
 
-export function removeLike(post_id: number): Promise<{}> {
+export const removeLike = (post_id: number): Promise<{} | IError> => {
     return request(`${API_BASE}/posts/${post_id}/like`, "DELETE");
 }
 
-export function setLike(post_id: number): Promise<{}> {
+export const setLike = (post_id: number): Promise<{} | IError> => {
     return request(`${API_BASE}/posts/${post_id}/like`, "POST");
 }
 
 // POSTS
 
-export function createPost(post: IPostCreationParameters): Promise<IPost> {
-    return request(`${API_BASE}/posts`, "POST", {post});
+export const createPost = (post: IPostCreationParameters): Promise<IPost> => {
+    return request(`${API_BASE}/posts`, "POST", { post });
 }
 
-export function deletePost(id: number): Promise<ISuccess | IError> {
+export const deletePost = (id: number): Promise<ISuccess | IError> => {
     return request(`${API_BASE}/posts/${id}`, "DELETE");
 }
 
-export function fetchPost(id: number): Promise<IPost> {
+export const fetchPost = (id: number): Promise<IPost> => {
     return request(`${API_BASE}/posts/${id}`);
 }
 
-export function fetchPosts(page: number = 1): Promise<IPost[]> {
+export const fetchPosts = (page: number = 1): Promise<IPost[]> => {
     return request(`${API_BASE}/posts?page=${page}`);
 }
 
-export function fetchUserPosts(username: string): Promise<IPost[]> {
-    return request(`${API_BASE}/profiles/${username}/posts`);
+export const fetchUserPosts = (username: string, page: number = 1): Promise<IPost[]> => {
+    return request(`${API_BASE}/profiles/${username}/posts?page=${page}`);
 }
 
 // PROFILES
 
-export function fetchProfiles(page: number = 1): Promise<IProfile[]> {
+export const fetchProfiles = (page: number = 1): Promise<IProfile[]> => {
     return request(`${API_BASE}/profiles?page=${page}`);
 }
 
-export function fetchProfile(username: string): Promise<IProfile> {
+export const fetchProfile = (username: string): Promise<IProfile> => {
     return request(`${API_BASE}/profiles/${username}`);
 }
 
 // UTIL
 
-function request(url: string, method: "GET" | "POST" | "PATCH" | "DELETE" = "GET", data: any = null): Promise<any> {
+const request = (url: string, method: "GET" | "POST" | "PATCH" | "DELETE" = "GET", data: any = null): Promise<any> => {
     let options: RequestInit = {
         method
     };
@@ -154,17 +154,20 @@ function request(url: string, method: "GET" | "POST" | "PATCH" | "DELETE" = "GET
     options.headers = new Headers({
         "Content-Type": "application/json"
     })
-    
-    if(data) {
+
+    if (data) {
         options.body = JSON.stringify(data);
     }
 
     const auth = localStorage.getItem("auth");
-    if(auth) {
-        options.headers.set("Authorization", "Bearer "+ auth);
+    if (auth) {
+        options.headers.set("Authorization", "Bearer " + auth);
     }
-    return fetch(url, options).then(res => res.text()).then(text => {
-        if(text.length === 0) return {}
+    return fetch(url, options).then(res => {
+        if(!res.ok) throw Error();
+        return res.text()
+    }).then(text => {
+        if (text.length === 0) return {}
         return JSON.parse(text);
     });
 }

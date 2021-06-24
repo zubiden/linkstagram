@@ -2,7 +2,7 @@ import { selectLanguageCode } from "../slices/localizationSlice";
 import store from "../store";
 import { LocalizationParameters } from "../types";
 
-export function getRelativeDateKey(timestamp: number | string, now: number): LocalizationParameters {
+export const getRelativeDateKey = (timestamp: number | string, now: number): LocalizationParameters => {
     if(typeof timestamp === "string") timestamp = new Date(timestamp.replace(/-/g, "/")).getTime()/1000; // Safari can't read standard format
     const diff = Math.abs(now - timestamp)
 
