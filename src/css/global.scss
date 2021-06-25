@@ -31,6 +31,7 @@ html {
     --inputColor: var(--grey);
     --backdropColor: rgba(1,1,1,0.4);
     --fileInputBackground: var(--grey);
+    --hrColor: var(--grey);
 
     @media (prefers-color-scheme: dark) {
         // dark mode?
@@ -50,4 +51,13 @@ html, body {
 img[src=""],
 img:not([src]) {
     content: url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==");
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

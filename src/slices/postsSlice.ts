@@ -20,6 +20,7 @@ export const fetchAllPosts = createAsyncThunk(
     async (username: string | null | undefined, thunkAPI) => {
         thunkAPI.dispatch(setCurrentPostsUsername(username || null));
         // DANGER! Possibly, a lot of requests if Linkstagram decides to get several million new posts
+        // TODO load posts on demand
         let notEnd = true;
         let posts: IPost[] = [];
         let currentPage = 1;

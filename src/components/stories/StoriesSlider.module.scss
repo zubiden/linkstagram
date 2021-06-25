@@ -4,4 +4,12 @@
 
     gap: 1.5em;
     margin-bottom: 2em;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    :global {
+        animation: fadeIn 0.25s ease-in-out;
+    }
 }

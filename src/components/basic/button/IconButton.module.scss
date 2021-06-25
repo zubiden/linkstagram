@@ -1,0 +1,28 @@
+.iconButton {
+    display: flex;
+    align-items: center;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    i {
+        margin-right: 0.5rem;
+        color: var(--iconColor);
+
+        
+    }
+
+    span {
+        font-weight: 600;
+    }
+
+}
+
+:global(i.red) {
+    color: var(--dangerColor);
+}
+
+:global(i.grey) {
+    color: var(--grey);
+}

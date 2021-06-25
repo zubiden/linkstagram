@@ -28,6 +28,11 @@
     "post_new_description_placeholder": "Опис...",
     "post_new_file": "Завантажуйте фото з вашої бібліотеки",
     "post_new_post": "Опублікувати",
+    "post_no_images": "Зображення відсутні",
+
+    "post_add_comment": "Додати коментар...",
+    "post_post_comment": "Відправити",
+    "post_no_comments": "Немає коментарів",
 
     "feed_no_posts": "Немає постів",
 

@@ -22,14 +22,14 @@ export const Avatar: FC<AvatarParameters> = ({url, size = "4em", border = false,
         <div className={classNames({
             [styles.square]: true,
             [styles.clickable]: clickable
-        })} style={{width: size}} onClick={ev => {
+        }, className)} style={{width: size}} onClick={ev => {
             onClick?.(ev);
             if (to) history.push(to);
         }} {...otherArgs}>
             <div className={classNames({
                 [styles.border]: true,
                 [styles.visible]: border
-            }, className)}>
+            })}>
                 <img src={url} className={styles.avatar} alt="Avatar"/>
             </div>
         </div>

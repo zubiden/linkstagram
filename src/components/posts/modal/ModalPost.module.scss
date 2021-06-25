@@ -1,0 +1,125 @@
+@import "../../../css/mixins";
+
+.modalPost {
+    padding: 0;
+    display: flex;
+    overflow: hidden;
+
+    @include mobileAndTablet {
+        flex-direction: column;
+        overflow-y: auto;
+        padding: 0 1rem;
+    }
+
+    .slider {
+        flex-grow: 1;
+        min-width: 600px;
+        display: grid;
+
+        & > * {
+            grid-area: 1/1;
+        } 
+
+        .squareContent {
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .data {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        min-width: 400px;
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            border-bottom: 1px solid var(--hrColor);
+
+            .avatar {
+                margin: 1.25rem 0;
+            }
+
+            .name {
+                font-weight: 500;
+                margin-left: 1rem;
+            }
+
+            .separator {
+                flex-grow: 1;
+            }
+
+            .close {
+                cursor: pointer;
+            }
+        }
+
+        .buttons {
+            padding-left: 2rem;
+            border-top: 1px solid var(--hrColor);
+
+            .like {
+                margin: 1rem 0;
+            }
+        }
+    }
+
+    .comments {
+        
+        &.padding {
+            padding-left: 2rem;
+            padding-top: 1rem;
+        }
+
+        flex-grow: 1;
+        overflow-y: auto;
+        min-height: 100px;
+
+        @include mobileAndTablet {
+            overflow-y: unset;
+            min-height: auto;
+        }
+
+        .comment {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .newComment {
+        display: flex;
+        align-items: center;
+        padding-left: 2rem;
+        background-color: var(--backgroundColor);
+        position: sticky;
+        bottom: 0;
+        border-top: 1px solid var(--hrColor);
+
+        .input {
+            flex-grow: 1;
+
+            textarea {
+                overflow: hidden;
+                border: none;
+                font-weight: 400;
+
+                &::placeholder {
+                    color: var(--secondaryTextColor);
+                }
+            }
+        }
+
+        .post {
+            background: transparent;
+            border: none;
+            margin: 1.5rem;
+            font-weight: 600;
+            color: var(--accentColor);
+            cursor: pointer;
+        }
+    }
+}

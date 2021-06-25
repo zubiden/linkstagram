@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import Dropdown from 'react-dropdown';
 import { Link } from "react-router-dom";
 import { selectLanguageCode, setLanguage, VALID_LANGUAGES } from "../../slices/localizationSlice";
@@ -13,9 +13,11 @@ type HeaderParameters = {
     home?: boolean
     profile?: boolean
     login?: boolean
+    back?: boolean
+    onBackClick?: MouseEventHandler<HTMLElement>
 }
 
-export const Header: FC<HeaderParameters> = ({home = false, profile = false, login = false}) => {
+export const Header: FC<HeaderParameters> = ({home = false, profile = false, login = false, back = false, onBackClick}) => {
     const dispatch = useAppDispatch();
     const lp = useLocalization();
 
@@ -28,7 +30,7 @@ export const Header: FC<HeaderParameters> = ({home = false, profile = false, log
     return (
         <>
         <header className={styles.header}>
-            <Link to="/" className={styles.logo}>Linkstagram</Link>
+            { back ? <i className={`icon icon-arrow ${styles.back}`} onClick={onBackClick}/> : <Link to="/" className={styles.logo}>Linkstagram</Link>}
             <div className={styles.separator}/>
             {home && <Button color="black" className={styles.button} to="/">{lp("header_home")}</Button>}
             <Dropdown 

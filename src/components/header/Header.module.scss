@@ -6,6 +6,8 @@ $MOBILE_HEADER_HEIGHT: 64px;
 .header {
     display: flex;
     position: fixed;
+    top: 0;
+    left: 0;
     height: $DESKTOP_HEADER_HEIGHT;
     width: 100%;
     padding: 1.5em 4em;
@@ -26,6 +28,13 @@ $MOBILE_HEADER_HEIGHT: 64px;
         font-weight: 800;
         color: var(--primaryTextColor);
         text-decoration: none;
+    }
+
+    .back {
+        font-size: 2em;
+        display: block;
+        transform: rotate(180deg);
+        cursor: pointer;
     }
 
     .separator {

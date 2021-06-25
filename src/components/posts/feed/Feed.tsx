@@ -1,7 +1,8 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { fetchAllPosts, selectLoadedPosts, selectPostsStatus } from "../../../slices/postsSlice";
 import { useAppDispatch, useLocalization } from "../../../util/hooks";
+import { ModalPost } from "../modal/ModalPost";
 import { Post } from "../post/Post";
 import styles from "./Feed.module.scss";
 
@@ -17,6 +18,8 @@ export const Feed: FC<FeedParameters> = ({ username }) => {
         dispatch(fetchAllPosts(username));
     }, [username, dispatch]);
 
+    const [modalPostId, setModalPostId] = useState(-1);
+
     const posts = useSelector(selectLoadedPosts);
     const status = useSelector(selectPostsStatus);
 
@@ -24,7 +27,9 @@ export const Feed: FC<FeedParameters> = ({ username }) => {
 
     if (status === "idle") {
         if(posts.length) {
-            content = posts.map(post => <Post key={post.id} post={post} />);
+            content = posts.map(post => <Post key={post.id} post={post} onImageClicked={() => {
+                setModalPostId(post.id)
+            }}/>);
         } else {
             content = <div className={styles.text}>{lp("feed_no_posts")}</div>;
         }
@@ -39,6 +44,7 @@ export const Feed: FC<FeedParameters> = ({ username }) => {
             <div className={styles.postList}>
                 {content}
             </div>
+            <ModalPost opened={modalPostId >= 0} postId={modalPostId} onRequestClose={() => setModalPostId(-1)}/>
         </div>
     )
 }

@@ -1,7 +1,8 @@
-import { FC, useEffect } from "react";
+import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { fetchAllPosts, selectLoadedPosts, selectPostsStatus } from "../../../slices/postsSlice";
 import { useAppDispatch, useLocalization } from "../../../util/hooks";
+import { ModalPost } from "../modal/ModalPost";
 import styles from "./PhotoFeed.module.scss";
 
 type PhotoFeedParameters = {
@@ -15,6 +16,8 @@ export const PhotoFeed: FC<PhotoFeedParameters> = ({username}) => {
     useEffect(() => {
         dispatch(fetchAllPosts(username));
     }, [username, dispatch]);
+    
+    const [modalPostId, setModalPostId] = useState(-1);
 
     const posts = useSelector(selectLoadedPosts);
     const status = useSelector(selectPostsStatus);
@@ -22,7 +25,7 @@ export const PhotoFeed: FC<PhotoFeedParameters> = ({username}) => {
     let content;
     if (status === "idle") {
         if(posts.length) {
-            content = posts.map(post => post.photos).flat(1).map(photo => <ImageSquare key={photo.id} url={photo.url}/>);
+            content = posts.map(post => post.photos.map(photo => <ImageSquare key={photo.id} url={photo.url} onClick={() => setModalPostId(post.id)}/>)).flat(1);
         } else {
             content = <div className={styles.text}>{lp("feed_no_posts")}</div>;
         }
@@ -35,10 +38,11 @@ export const PhotoFeed: FC<PhotoFeedParameters> = ({username}) => {
     return (
         <div className={styles.photoFeed}>
             {content}
+            <ModalPost opened={modalPostId >= 0} postId={modalPostId} onRequestClose={() => setModalPostId(-1)}/>
         </div>
     )
 }
 
-const ImageSquare: FC<{url: string}> = ({url}) => {
-    return <div className={styles.square} style={{backgroundImage: `url(${url})`}}/>
+const ImageSquare: FC<{url: string, onClick?: MouseEventHandler<HTMLElement>}> = ({url, onClick}) => {
+    return <div className={styles.square} onClick={onClick} style={{backgroundImage: `url(${url})`}}/>
 }

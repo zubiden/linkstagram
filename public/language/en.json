@@ -26,6 +26,11 @@
     "post_new_description_placeholder": "Description...",
     "post_new_file": "Upload any photos from your library",
     "post_new_post": "Post",
+    "post_no_images": "No images",
+
+    "post_add_comment": "Add a comment...",
+    "post_post_comment": "Post",
+    "post_no_comments": "No comments yet",
     
     "feed_no_posts": "No posts",
 

@@ -22,6 +22,7 @@ export const fetchAllProfiles = createAsyncThunk(
     "profile/fetchAllProfiles",
     async () => {
         // DANGER! Possibly, a lot of requests if Linkstagram decides to get several million new users
+        // but probably the best way to do this as of right now
         let notEnd = true;
         let profiles: IProfile[] = [];
         let currentPage = 1;

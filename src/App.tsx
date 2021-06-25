@@ -30,6 +30,9 @@ function App() {
                 <Route exact path="/profile">
                     <Profile />
                 </Route>
+                <Route exact path="/:id">
+                    <Home />
+                </Route>
                 <Route exact path="/">
                     <Home />
                 </Route>

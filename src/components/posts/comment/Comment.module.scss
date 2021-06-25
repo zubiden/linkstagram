@@ -1,0 +1,25 @@
+
+.comment {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        font-size: 0.75rem;
+
+        .name {
+            font-weight: 500;
+        }
+
+        .message {
+            font-weight: 400;
+        }
+
+        .time {
+            color: var(--secondaryTextColorB);
+        }
+    }
+}

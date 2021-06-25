@@ -5,6 +5,10 @@
     flex-direction: column;
     min-height: calc(var(--vh100));
 
+    :global {
+        animation: fadeIn 0.25s ease-in-out;
+    }
+
     .content {
         display: flex;
         flex-grow: 1;

@@ -5,6 +5,10 @@
     flex-direction: column;
     align-items: center;
 
+    :global {
+        animation: fadeIn 0.25s ease-in-out;
+    }
+
     .top {
         display: flex;
         align-items: center;

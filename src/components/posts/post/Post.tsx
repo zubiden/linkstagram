@@ -1,20 +1,25 @@
-import classNames from "classnames";
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
+import { useHistory } from "react-router-dom";
 import { deleteOwnPost, dislikePost, likePost } from "../../../slices/postsSlice";
 import { selectAccount } from "../../../slices/profileSlice";
 import { IPost } from "../../../types";
+import { copyTextToClipboard } from "../../../util/clipboard";
+import { BASE_URL } from "../../../util/contants";
 import { getRelativeDateKey } from "../../../util/date";
 import { useAppDispatch, useAppSelector, useAuthorization, useLocalization } from "../../../util/hooks";
 import { insertNewlines } from "../../../util/jsx";
 import { Avatar } from "../../basic/avatar/Avatar";
+import { IconButton } from "../../basic/button/IconButton";
 import styles from "./Post.module.scss";
 
 type PostProps = {
     post: IPost
+    onImageClicked?: MouseEventHandler<HTMLElement>
 }
 
-export const Post: FC<PostProps> = ({post}) => {
+export const Post: FC<PostProps> = ({post, onImageClicked}) => {
     const lp = useLocalization();
+    const history = useHistory();
     const dispatch = useAppDispatch();
 
     const account = useAppSelector(selectAccount);
@@ -29,7 +34,7 @@ export const Post: FC<PostProps> = ({post}) => {
                         { `${post.author.first_name || ""} ${post.author.last_name || ""}`}
                     </div>
                     <div className={styles.time}>
-                        {lp(getRelativeDateKey(post.created_at, Date.now()))}
+                        {lp(getRelativeDateKey(post.created_at))}
                     </div>
                 </div>
                 <div className={styles.more}  onClick={() => {
@@ -42,37 +47,21 @@ export const Post: FC<PostProps> = ({post}) => {
             </div>
             <div className={styles.content}>
                 {!!post.photos.length && <div className={styles.square}>
-                    <img src={post.photos[0].url} className={styles.image} alt="Post content"/>
+                    <img src={post.photos[0].url} className={styles.image} alt="Post content" onClick={onImageClicked}/>
                 </div>}
                 {post.description && <div className={styles.description}>{insertNewlines(post.description)}</div>}
             </div>
             <div className={styles.footer}>
-                <IconText icon="like" text={post.likes_count.toString()} liked={post.is_liked} onClick={() => requireAuth(() => dispatch(post.is_liked ? dislikePost(post.id) : likePost(post.id)))}/>
-                <IconText icon="comments" text="0"/>
+                <IconButton 
+                    className={styles.iconButton} 
+                    icon="like" text={post.likes_count.toString()} 
+                    checked={post.is_liked} 
+                    onClick={() => requireAuth(() => dispatch(post.is_liked ? dislikePost(post.id) : likePost(post.id)))}
+                />
+                <IconButton className={styles.iconButton} icon="comments" text="0" onClick={() => history.push(`/${post.id}`)}/>
                 <div className={styles.separator}/>
-                <div className={styles.share}>{lp("post_share")} <i className="icon icon-arrow"/></div>
+                <div className={styles.share} onClick={() => copyTextToClipboard(BASE_URL+"#/"+post.id)}>{lp("post_share")} <i className="icon icon-arrow"/></div>
             </div>
         </div>
-    )
-}
-
-type IconTextParameters = {
-    icon: string
-    text: string
-    liked?: boolean
-    onClick?: React.MouseEventHandler<HTMLSpanElement>
-}
-
-const IconText: FC<IconTextParameters> = ({icon, text, liked = false, onClick}) => {
-    return (
-        <span className={styles.iconText} onClick={onClick}>
-            <i className={classNames({
-                "icon": true,
-                [`icon-${icon}`]: true,
-                [styles.liked]: liked
-            })
-            }/>
-            <span className={styles.text}>{text}</span>
-        </span>
     )
 }
