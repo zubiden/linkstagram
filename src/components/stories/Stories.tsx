@@ -1,10 +1,10 @@
 import { FC, useEffect } from "react";
 import { fetchAllProfiles, selectProfiles } from "../../slices/profileSlice";
 import { useAppDispatch, useAppSelector } from "../../util/hooks";
-import { Avatar } from "./../basic/avatar/Avatar";
-import styles from "./StoriesSlider.module.scss";
+import { Avatar } from "../basic/avatar/Avatar";
+import styles from "./Stories.module.scss";
 
-export const StoriesSlider: FC = () => {
+export const Stories: FC = () => {
 
     const dispatch = useAppDispatch();
 
@@ -15,7 +15,7 @@ export const StoriesSlider: FC = () => {
     const profiles = useAppSelector(selectProfiles);
 
     return (
-        <div className={styles.slider}>
+        <div className={styles.stories}>
             <div className={styles.scroll}>
                 {profiles.filter(profile => profile.profile_photo_url).map(profile => <Avatar
                     key={profile.username}

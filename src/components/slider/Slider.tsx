@@ -20,6 +20,8 @@ export const Slider: FC<SliderProps> = ({ photos, sides = false, roundBorders, o
     const next = (index < (photos.length - 1)) ? photos[index + 1] : null;
     const secondNext = (index === 0 && photos.length > 2) ? photos[index + 2] : null;
 
+    const big = !sides || (!prev && !next);
+
     const showPrev: MouseEventHandler<HTMLElement> = ev => {
         ev.stopPropagation();
         setIndex(Math.max(index - 1, 0));
@@ -38,6 +40,7 @@ export const Slider: FC<SliderProps> = ({ photos, sides = false, roundBorders, o
             [styles.slider]: true,
             [styles.roundBorders]: roundBorders,
         }, className)}>
+            <svg viewBox={`0 0 1 ${big ? 1 : 0.8}`}></svg>
             {sides && secondPrev && <SliderPhoto photo={secondPrev} className={styles.secondPrev} onClick={showPrev} />}
             {sides && prev && <SliderPhoto photo={prev} className={classNames({
                 [styles.prev]: true,
@@ -50,7 +53,7 @@ export const Slider: FC<SliderProps> = ({ photos, sides = false, roundBorders, o
                 [styles.current]: true,
                 [styles.left]: secondNext,
                 [styles.right]: secondPrev,
-                [styles.big]: !sides || (!prev && !next)
+                [styles.big]: big
             })} onClick={onCenterClick} />}
 
             {next && <CenteredButton direction="right" onClick={showNext} />}
@@ -60,7 +63,7 @@ export const Slider: FC<SliderProps> = ({ photos, sides = false, roundBorders, o
                 [styles.padded]: secondNext
             })} onClick={showNext} />}
             {sides && secondNext && <SliderPhoto photo={secondNext} className={styles.secondNext} onClick={showNext} />}
-            {!sides && <div className={styles.position}>
+            {!sides && photos.length > 1 && <div className={styles.position}>
                 {new Array(photos.length).fill(null).map((_, i) => <Point current={i === index} onClick={ev => {
                     ev.stopPropagation();
                     setIndex(i)

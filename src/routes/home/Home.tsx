@@ -6,7 +6,7 @@ import { Header } from "../../components/header/Header";
 import { Feed } from "../../components/posts/feed/Feed";
 import { ModalPost } from "../../components/posts/modal/ModalPost";
 import { ProfileInfo } from "../../components/profile/info/ProfileInfo";
-import { StoriesSlider } from "../../components/stories/StoriesSlider";
+import { Stories } from "../../components/stories/Stories";
 import { selectAccount, selectIsLoggedIn } from "../../slices/profileSlice";
 import { IProfile } from "../../types";
 import { useAppSelector, useLocalization } from "../../util/hooks";
@@ -35,7 +35,7 @@ const Home: FC = () => {
             <Header profile login/>
             <div className={styles.content}>
                 <div className={styles.left}>
-                    <StoriesSlider/>
+                    <Stories/>
                     <Feed/>
                 </div>
                 <div className={styles.right}>

@@ -1,12 +1,18 @@
 .slider {
     position: relative;
 
+    display: grid;
+
+    & > * {
+        grid-area: 1/1;
+    }
+
     &.roundBorders {
         img {
             border-radius: 3em;
         }
     }
-    
+
     .button {
         position: absolute;
         width: 2rem;
@@ -39,7 +45,9 @@
     }
 
     .square {
-        position: relative;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         width: 80%;
 
         display: grid;
@@ -63,27 +71,26 @@
         }
 
         &.prev,
-        &.next,
-        &.secondPrev,
-        &.secondNext {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            height: 85%;
+        &.next {
+            width: 60%;
             opacity: 0.5;
             z-index: 4;
         }
 
         &.current {
             z-index: 5;
-            margin: 0 auto;
+            left: 50%;
+            transform: translate(-50%, -50%);
 
             &.right {
-                float: right;
+                right: 0;
+                left: unset;
+                transform: translateY(-50%);
             }
 
             &.left {
-                float: left;
+                left: 0;
+                transform: translateY(-50%);
             }
         }
 
@@ -99,7 +106,7 @@
             &.prev {
                 left: 10%;
             }
-    
+
             &.next {
                 right: 10%;
             }
@@ -107,7 +114,9 @@
 
         &.secondPrev,
         &.secondNext {
-            height: 70%;
+            width: 50%;
+            opacity: 0.5;
+            z-index: 3;
         }
 
         &.secondPrev {
@@ -125,7 +134,7 @@
         left: 50%;
         transform: translateX(-50%);
         z-index: 20;
-        
+
         display: flex;
         gap: 0.75rem;
 
