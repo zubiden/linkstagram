@@ -1,0 +1,144 @@
+.slider {
+    position: relative;
+
+    &.roundBorders {
+        img {
+            border-radius: 3em;
+        }
+    }
+    
+    .button {
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.75rem;
+        cursor: pointer;
+
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: var(--backgroundColor);
+
+        z-index: 10;
+
+        i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+        }
+
+        &.right {
+            right: 5%;
+        }
+
+        &.left {
+            left: 5%;
+            transform: rotate(180deg);
+        }
+    }
+
+    .square {
+        position: relative;
+        width: 80%;
+
+        display: grid;
+
+        & > * {
+            grid-area: 1/1;
+        }
+
+        .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        &.big {
+            width: 100%;
+        }
+
+        &.prev,
+        &.next,
+        &.secondPrev,
+        &.secondNext {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 85%;
+            opacity: 0.5;
+            z-index: 4;
+        }
+
+        &.current {
+            z-index: 5;
+            margin: 0 auto;
+
+            &.right {
+                float: right;
+            }
+
+            &.left {
+                float: left;
+            }
+        }
+
+        &.prev {
+            left: 0;
+        }
+
+        &.next {
+            right: 0;
+        }
+
+        &.padded {
+            &.prev {
+                left: 10%;
+            }
+    
+            &.next {
+                right: 10%;
+            }
+        }
+
+        &.secondPrev,
+        &.secondNext {
+            height: 70%;
+        }
+
+        &.secondPrev {
+            left: 0;
+        }
+
+        &.secondNext {
+            right: 0;
+        }
+    }
+
+    .position {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 20;
+        
+        display: flex;
+        gap: 0.75rem;
+
+        .point {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            border: 1px solid var(--backgroundColor);
+            cursor: pointer;
+
+            &.current {
+                background-color: var(--backgroundColor);
+            }
+        }
+    }
+}

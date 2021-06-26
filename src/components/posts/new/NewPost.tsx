@@ -29,10 +29,16 @@ export const NewPost: FC<NewPostParameters> = ({ opened = false, onRequestClose 
 
     return (
         <Modal className={styles.newPost} isOpen={opened} onRequestClose={onRequestClose}>
-            <ImageInput text={lp("post_new_file")} className={styles.input} uppy={uppy} />
+            <ImageInput 
+                text={lp("post_new_file")} 
+                className={styles.input} 
+                uppy={uppy}
+                multiple
+                accept={["image/png", "image/jpg", "image/jpeg"]}
+            />
             <TextArea
                 className={styles.description}
-                minRows={5}
+                minRows={3}
                 placeholder={lp("post_new_description_placeholder")}
                 label={lp("post_new_description")}
                 onChange={ev => setDescription(ev.currentTarget.value)}

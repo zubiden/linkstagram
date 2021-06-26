@@ -11,22 +11,9 @@
         padding: 0 1rem;
     }
 
-    .slider {
+    .slider, .noImages {
         flex-grow: 1;
         min-width: 600px;
-        display: grid;
-
-        & > * {
-            grid-area: 1/1;
-        } 
-
-        .squareContent {
-            img {
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
-            }
-        }
     }
 
     .data {
@@ -58,14 +45,15 @@
                 cursor: pointer;
             }
         }
+    }
 
-        .buttons {
-            padding-left: 2rem;
-            border-top: 1px solid var(--hrColor);
+    .buttons {
+        padding-left: 2rem;
+        border-top: 1px solid var(--hrColor);
+        flex-shrink: 0;
 
-            .like {
-                margin: 1rem 0;
-            }
+        .like {
+            margin: 1rem 0;
         }
     }
 

@@ -84,6 +84,8 @@ const countToPluralCode = (code: string, count: number): PluralCategory => {
     return plurals[code](count);
 }
 
+// TODO autogenerate guards based on fields and accept any
+// move from hooks
 export const isLocalizationParameters = (key: LocalizationParameters | string): key is LocalizationParameters => {
     return (key as string).length === undefined;
 }

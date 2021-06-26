@@ -56,7 +56,7 @@ export const updateAccount = createAsyncThunk(
     "profile/updateAccount",
     async (newInfo: IProfileUpdateParameters, thunkAPI) => {
         const res = await editAccount(newInfo);
-        if("error" in res) {
+        if(isError(res)) {
             throw Error("Failed to update account")
         } else {
             thunkAPI.dispatch(fetchAllPosts(selectCurrentPostsUsername(thunkAPI.getState() as RootState)));
@@ -111,7 +111,6 @@ const profileSlice = createSlice({
         }).addCase(fetchCurrentAccount.rejected, (state) => {
             state.accountFetchStatus = "failed";
             state.account = null;
-            localStorage.removeItem("auth"); // Should I do this here? IDK what place is better
         })
         .addCase(updateAccount.fulfilled, (state, action) => {
             state.account = action.payload

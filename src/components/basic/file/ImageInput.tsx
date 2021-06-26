@@ -1,19 +1,22 @@
 import Uppy from "@uppy/core";
 import classNames from "classnames";
 import React, { FC, SyntheticEvent, useEffect, useRef, useState } from "react";
+import { IPhoto } from "../../../types";
 import { addFile } from "../../../util/uppy";
+import { Slider } from "../../slider/Slider";
 import styles from "./ImageInput.module.scss";
 
 interface ImageInputProps {
     uppy: Uppy.Uppy
     accept?: string[]
+    multiple?: boolean
     text?: string
     className?: string
     getFiles?: Function
     defaultPreviewUrl?: string
 }
 
-export const ImageInput: FC<ImageInputProps> = ({ uppy, accept = [], text, defaultPreviewUrl, className }) => {
+export const ImageInput: FC<ImageInputProps> = ({ uppy, accept = ["image/*"], multiple = false, text, defaultPreviewUrl, className }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [files, setFiles] = useState<File[]>([]);
 
@@ -42,13 +45,10 @@ export const ImageInput: FC<ImageInputProps> = ({ uppy, accept = [], text, defau
             }}
         >
             <div className={styles.preview}>
-                {files.length ? 
-                    files.map(file => <img src={URL.createObjectURL(file)} alt="Preview"/>) 
-                    : defaultPreviewUrl ? 
-                        <img src={defaultPreviewUrl} alt="Preview"/> 
-                            : text}
+                {files.length ? <Slider photos={filesToPhotos(files)} className={styles.slider}/> : 
+                    defaultPreviewUrl ? <img src={defaultPreviewUrl} alt="Preview"/> : text}
             </div>
-            <input type="file" accept={accept.join(",")} ref={inputRef} hidden onChange={ev => {
+            <input type="file" accept={accept.join(",")} multiple={multiple} ref={inputRef} hidden onChange={ev => {
                 if (ev.target.files?.length) {
                     setFiles(Array.from(ev.target.files))
                 }
@@ -56,4 +56,8 @@ export const ImageInput: FC<ImageInputProps> = ({ uppy, accept = [], text, defau
             } />
         </div>
     )
+}
+
+const filesToPhotos = (files: File[]): IPhoto[] => {
+    return files.map((file, i) => ({id: i, url: URL.createObjectURL(file)}));
 }

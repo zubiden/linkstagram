@@ -16,12 +16,14 @@ export const StoriesSlider: FC = () => {
 
     return (
         <div className={styles.slider}>
-            {profiles.filter(profile => profile.profile_photo_url).map(profile => <Avatar 
-                                        key={profile.username} 
-                                        url={profile.profile_photo_url} 
-                                        size={"4em"} 
-                                        to={`/profile/${profile.username}`} 
-                                        border/>)}
+            <div className={styles.scroll}>
+                {profiles.filter(profile => profile.profile_photo_url).map(profile => <Avatar
+                    key={profile.username}
+                    url={profile.profile_photo_url}
+                    size={"4em"}
+                    to={`/profile/${profile.username}`}
+                    border />)}
+            </div>
         </div>
     )
-} 
+}

@@ -51,6 +51,10 @@
             gap: 0.75rem;
             margin-top: 1rem;
 
+            @include desktop {
+                justify-content: center;
+            }
+
             @include mobileAndTablet {
                 button {
                     flex: 1;

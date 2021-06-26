@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { IComment, IPost } from "../types";
-import { fetchComments, fetchPost, IError, leaveComment, removeLike, setLike } from "../util/api";
-import { refetchPost } from "./postsSlice";
+import { fetchComments, fetchPost, leaveComment } from "../util/api";
 
 export interface OpenedPostState {
     post: IPost | null;
@@ -45,48 +44,17 @@ export const leaveOwnComment = createAsyncThunk(
     }
 );
 
-export const likeOpenedPost = createAsyncThunk(
-    "openedPost/like",
-    async (_, thunkAPI) => {
-        const post = selectOpenedPost(thunkAPI.getState() as RootState);
-        if(!post) return;
-        const post_id = post.id;
-        const result = await setLike(post_id);
-        if(!(result as IError).error) {
-            thunkAPI.dispatch(triggerLike(true));
-        }
-        thunkAPI.dispatch(refetchPost(post_id));
-        return result;
-    }
-);
-
-export const dislikeOpenedPost = createAsyncThunk(
-    "openedPost/dislike",
-    async (_, thunkAPI) => {
-        const post = selectOpenedPost(thunkAPI.getState() as RootState);
-        if(!post) return;
-        const post_id = post.id;
-        const result = await removeLike(post_id);
-        if(!(result as IError).error) {
-            thunkAPI.dispatch(triggerLike(false));
-        }
-        thunkAPI.dispatch(refetchPost(post_id));
-    }
-);
-
 const openedPostSlice = createSlice({
-    name: "posts",
+    name: "openedPost",
     initialState,
     reducers: {
-        triggerLike(state, action: PayloadAction<boolean>) {
-            if(state.post) {
-                state.post.is_liked = action.payload;
-                state.post.likes_count = state.post.likes_count + (action.payload ? 1 : -1);
-            }
-        },
         closePost(state) {
             state.post = null;
             state.comments = [];
+        },
+        setOpenedPost(state, action: PayloadAction<IPost>) {
+            state.post = action.payload
+            state.postStatus = "idle"
         }
     },
     extraReducers: (builder) => {
@@ -116,7 +84,7 @@ const openedPostSlice = createSlice({
 export default openedPostSlice.reducer;
 
 // Actions
-export const { triggerLike, closePost } = openedPostSlice.actions;
+export const {closePost, setOpenedPost } = openedPostSlice.actions;
 
 //Selectors
 export const selectOpenedPost = (state: RootState) => state.openedPost.post;

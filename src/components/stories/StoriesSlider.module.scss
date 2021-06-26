@@ -1,12 +1,44 @@
+@import "../../css/mixins";
+
 .slider {
-    display: flex;
-    overflow-x: auto;
+    position: relative;
 
-    gap: 1.5em;
-    margin-bottom: 2em;
+    @include desktop {
+        margin: 0 -4rem 2rem -4rem;
+    }
 
-    &::-webkit-scrollbar {
-        display: none;
+    @include mobile {
+        max-width: 100vw; // fixes overflow
+        margin-bottom: 2rem;
+    }
+
+    .scroll {
+        display: flex;
+        overflow-x: auto;
+        gap: 1.5rem;
+        padding: 0 4rem 0.5rem 4rem;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: -0.1rem;
+        top: 0;
+        bottom: 0;
+        width: 4rem;
+        background: linear-gradient(90deg, var(--pageBackgroundColor) 25%, rgba(255, 255, 255, 0) 100%);
+        z-index: 10;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        right: -0.1rem;
+        top: 0;
+        bottom: 0;
+        width: 4rem;
+        background: linear-gradient(-90deg, var(--pageBackgroundColor) 25%, rgba(255, 255, 255, 0) 100%);
+        z-index: 10;
     }
 
     :global {

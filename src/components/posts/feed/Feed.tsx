@@ -41,9 +41,7 @@ export const Feed: FC<FeedParameters> = ({ username }) => {
 
     return (
         <div className={styles.feed}>
-            <div className={styles.postList}>
-                {content}
-            </div>
+            {content}
             <ModalPost opened={modalPostId >= 0} postId={modalPostId} onRequestClose={() => setModalPostId(-1)}/>
         </div>
     )

@@ -6,7 +6,7 @@ import { API_BASE } from "./api"
 export const getUppy = () => {
     const uppy = Uppy<Uppy.StrictTypes>({
         restrictions: {
-            maxNumberOfFiles: 1,
+            maxNumberOfFiles: 10,
             allowedFileTypes: ["image/png", "image/jpg", "image/jpeg"],
             maxFileSize: 5 * 1024 * 1024 // 5MB
         },

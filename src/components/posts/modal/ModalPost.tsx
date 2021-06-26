@@ -1,15 +1,16 @@
 import classNames from "classnames";
 import { FC, useEffect, useState } from "react";
-import { closePost, dislikeOpenedPost, leaveOwnComment, likeOpenedPost, openPost, selectOpenedComments, selectOpenedPost } from "../../../slices/openedPostSlice";
-import { selectPostsStatus } from "../../../slices/postsSlice";
+import { closePost, leaveOwnComment, openPost, selectOpenedComments, selectOpenedPost } from "../../../slices/openedPostSlice";
+import { dislikePost, likePost, selectPostsStatus } from "../../../slices/postsSlice";
 import { IComment, IPost } from "../../../types";
 import { IS_DESKTOP } from "../../../util/contants";
-import { useAppDispatch, useAppSelector, useLocalization, useWindowSize } from "../../../util/hooks";
+import { useAppDispatch, useAppSelector, useAuthorization, useLocalization, useWindowSize } from "../../../util/hooks";
 import { Avatar } from "../../basic/avatar/Avatar";
 import { IconButton } from "../../basic/button/IconButton";
 import { Modal } from "../../basic/modal/Modal";
 import { TextArea } from "../../basic/textarea/TextArea";
 import { Header } from "../../header/Header";
+import { Slider } from "../../slider/Slider";
 import { Comment } from "../comment/Comment";
 import { Post } from "../post/Post";
 import styles from "./ModalPost.module.scss";
@@ -50,22 +51,17 @@ export const ModalPost: FC<ModalPostParams> = ({ postId = -1, opened = false, on
         if (!IS_DESKTOP()) {
             content = (
                 <>
-                    <Header back onBackClick={onRequestClose}/>
-                    <Post post={post} />
-                    <Comments post={post} comments={comments}/>
+                    <Header back onBackClick={onRequestClose} />
+                    <Post post={post} sliderSides />
+                    <Comments post={post} comments={comments} />
                 </>
             )
         } else {
             content = (
                 <>
-                    <div className={styles.slider}>
-                        <svg viewBox="0 0 1 1"></svg> {/* Another square image hack */}
-                        <div className={styles.squareContent}>
-                            {post.photos.length ? 
-                                <img src={post.photos[0].url} alt="Post" /> 
-                                    : <div className={styles.noImage}>{lp("post_no_images")}</div>}
-                        </div>
-                    </div>
+                    {post.photos.length ?
+                        <Slider photos={post.photos} className={styles.slider} />
+                        : <div className={styles.noImages}>{lp("post_no_images")}</div>}
                     <div className={styles.data}>
                         <div className={styles.header}>
                             <Avatar className={styles.avatar} url={post.author.profile_photo_url} size="3rem" />
@@ -75,7 +71,7 @@ export const ModalPost: FC<ModalPostParams> = ({ postId = -1, opened = false, on
                             <div className={styles.separator} />
                             <i className={`icon icon-cross ${styles.close}`} onClick={onRequestClose} />
                         </div>
-                        <Comments post={post} comments={comments} likes padding/>
+                        <Comments post={post} comments={comments} likes padding />
                     </div>
                 </>
             )
@@ -99,6 +95,8 @@ type CommentsProps = {
 const Comments: FC<CommentsProps> = ({ comments, post, likes = false, padding = false }) => {
     const lp = useLocalization();
     const dispatch = useAppDispatch();
+    const requireAuth = useAuthorization();
+
     const [comment, setComment] = useState("");
 
     return (
@@ -106,16 +104,16 @@ const Comments: FC<CommentsProps> = ({ comments, post, likes = false, padding = 
             <div className={classNames({
                 [styles.comments]: true,
                 [styles.padding]: padding
-                })}>
+            })}>
                 {comments.length ? comments.map(comment => <Comment avatarSize="3rem" className={styles.comment} comment={comment} key={comment.id} />) : lp("post_no_comments")}
             </div>
-            { likes && <div className={styles.buttons}>
+            {likes && <div className={styles.buttons}>
                 <IconButton
                     icon="like"
                     text={post.likes_count.toString()}
                     className={styles.like}
                     checked={post.is_liked}
-                    onClick={() => post.is_liked ? dispatch(dislikeOpenedPost()) : dispatch(likeOpenedPost())}
+                    onClick={() => requireAuth(() => post.is_liked ? dispatch(dislikePost(post.id)) : dispatch(likePost(post.id)))}
                 />
             </div>}
             <div className={styles.newComment}>
@@ -126,10 +124,10 @@ const Comments: FC<CommentsProps> = ({ comments, post, likes = false, padding = 
                     value={comment}
                     onChange={ev => setComment(ev.currentTarget.value)}
                 />
-                <button className={styles.post} onClick={() => {
+                <button className={styles.post} onClick={() => requireAuth(() => {
                     dispatch(leaveOwnComment({ post_id: post.id, message: comment }));
                     setComment("");
-                }}>{lp("post_post_comment")}</button>
+                })}>{lp("post_post_comment")}</button>
             </div>
         </>
     )

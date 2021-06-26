@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { IPost } from "../types";
 import { createPost, deletePost, fetchPost, fetchPosts, fetchUserPosts, IPostCreationParameters, removeLike, setLike } from "../util/api";
+import { selectOpenedPost, setOpenedPost } from "./openedPostSlice";
 
 export interface PostsState {
     loadedPosts: IPost[];
@@ -41,14 +42,19 @@ export const fetchAllPosts = createAsyncThunk(
 export const refetchPost = createAsyncThunk(
     "posts/fetchPost",
     async (post_id: number, thunkAPI) => {
-        return fetchPost(post_id);
+        const post = await fetchPost(post_id);
+        // update opened post on refetch
+        const opened = selectOpenedPost(thunkAPI.getState() as RootState);
+        if(opened?.id === post.id) thunkAPI.dispatch(setOpenedPost(post));
+
+        return post;
     }
 );
 
 export const likePost = createAsyncThunk(
     "posts/like",
     async (post_id: number, thunkAPI) => {
-        await setLike(post_id)
+        await setLike(post_id);
         thunkAPI.dispatch(refetchPost(post_id));
     }
 );
