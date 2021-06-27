@@ -1,0 +1,17 @@
+.prompt {
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+    min-width: 100px;
+    padding: 2rem;
+
+    .buttons {
+        display: flex;
+        margin-top: 1rem;
+        gap: 1rem;
+        
+        & > * {
+            flex: 1;
+        }
+    }
+}

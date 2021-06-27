@@ -3,6 +3,9 @@
     "test_replace": "Тест {replace}",
 
     "general_cancel": "Скасувати",
+    "general_continue": "Продовжити",
+    "general_yes": "Так",
+    "general_no": "Ні",
     "general_login": "Увійти",
     "general_logout": "Вийти",
     "general_save": "Зберегти",
@@ -32,7 +35,9 @@
     "post_new_failed_to_upload": "Не вдалося завантажити {files}",
     "post_no_images": "Зображення відсутні",
     "post_copy_link": "Копіювати посилання",
+    "post_copied": "Скопійовано у буфер",
     "post_delete": "Видалити",
+    "post_delete_confirm": "Ви справді бажаєте видалити цей пост?",
 
     "post_add_comment": "Додати коментар...",
     "post_post_comment": "Відправити",

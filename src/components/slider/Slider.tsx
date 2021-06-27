@@ -64,7 +64,7 @@ export const Slider: FC<SliderProps> = ({ photos, sides = false, roundBorders, o
             })} onClick={showNext} />}
             {sides && secondNext && <SliderPhoto photo={secondNext} className={styles.secondNext} onClick={showNext} />}
             {!sides && photos.length > 1 && <div className={styles.position}>
-                {new Array(photos.length).fill(null).map((_, i) => <Point current={i === index} onClick={ev => {
+                {new Array(photos.length).fill(null).map((_, i) => <Point current={i === index} key={i} onClick={ev => {
                     ev.stopPropagation();
                     setIndex(i)
                 }} />)}

@@ -3,6 +3,9 @@
     "test_replace": "Test {replace}",
 
     "general_cancel": "Cancel",
+    "general_continue": "Continue",
+    "general_yes": "Yes",
+    "general_no": "No",
     "general_login": "Log in",
     "general_logout": "Log out",
     "general_save": "Save",
@@ -30,7 +33,9 @@
     "post_new_failed_to_upload": "Failed to upload {files}",
     "post_no_images": "No images",
     "post_copy_link": "Copy link",
+    "post_copied": "Copied to buffer",
     "post_delete": "Delete",
+    "post_delete_confirm": "Do you really want to delete this post?",
 
     "post_add_comment": "Add a comment...",
     "post_post_comment": "Post",

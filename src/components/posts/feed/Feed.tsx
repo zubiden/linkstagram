@@ -41,7 +41,7 @@ export const Feed: FC<FeedParameters> = ({ username }) => {
 
     if (status === "idle") {
         if(posts.length) {
-            content = posts.map(post => <Post key={post.id} post={post} onImageClicked={() => {
+            content = posts.map(post => <Post key={post.id} post={post} onClick={() => {
                 setModalPostId(post.id)
             }}/>);
         } else {

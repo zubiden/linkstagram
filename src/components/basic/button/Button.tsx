@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import styles from "./Button.module.scss";
 
 interface ButtonParameters extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    color?: "blue" | "black" | "white"
+    color?: "blue" | "black" | "white" | "red"
     lightBorder?: boolean
     square?: boolean
     smallPadding?: boolean

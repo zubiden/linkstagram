@@ -30,7 +30,9 @@
     border-radius: 2rem;
     padding: 3rem;
     overflow-y: auto;
+}
 
+.mobileExpand {
     @include mobile {
         top: 0;
         left: 0;
