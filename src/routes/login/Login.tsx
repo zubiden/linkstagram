@@ -58,7 +58,12 @@ const Login: FC = () => {
             <Header />
             <div className={styles.content}>
                 <div className={styles.presentation}>
-                    Photos go wroom
+                    <div className={styles.scrollable}>
+                        <img className={styles.profile} src="images/presentation.jpg" alt="Presentation"/>
+                    </div>
+                    <div className={styles.float1} style={{backgroundImage: "url(images/float1.png)"}}/>
+                    <div className={styles.float2} style={{backgroundImage: "url(images/float2.png)"}}/>
+                    <div className={styles.float3} style={{backgroundImage: "url(images/float3.png)"}}/>
                 </div>
                 <div className={styles.authPane}>
                     <div className={styles.title}>{lp(signUp ? "login_sign_up" : "login_login")}</div>

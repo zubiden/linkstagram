@@ -12,19 +12,34 @@ interface ImageInputProps {
     multiple?: boolean
     text?: string
     className?: string
-    getFiles?: Function
     defaultPreviewUrl?: string
+    onFailedFiles?: (files: File[]) => void
+    onFilesSelected?: (files: File[]) => void
 }
 
-export const ImageInput: FC<ImageInputProps> = ({ uppy, accept = ["image/*"], multiple = false, text, defaultPreviewUrl, className }) => {
+export const ImageInput: FC<ImageInputProps> = ({ uppy, accept = ["image/*"], multiple = false, text, defaultPreviewUrl, className, onFailedFiles, onFilesSelected }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [files, setFiles] = useState<File[]>([]);
 
     useEffect(() => {
         // clear and re-add files on change
         uppy.getFiles().forEach(file => uppy.removeFile(file.id));
-        files.forEach(file => addFile(uppy, file));
-    }, [files, uppy]);
+
+        let failedFiles: File[] = [];
+
+        files.forEach(file => {
+            try {
+                addFile(uppy, file)
+            } catch (ex) {
+                failedFiles.push(file);
+            }
+        });
+        // remove failed files from state
+        if (failedFiles.length) {
+            setFiles(files.filter(file => !failedFiles.includes(file)));
+            onFailedFiles?.(failedFiles);
+        }
+    }, [files, uppy, onFailedFiles]);
 
     const preventEvent = (ev: SyntheticEvent) => {
         ev.preventDefault();
@@ -41,15 +56,17 @@ export const ImageInput: FC<ImageInputProps> = ({ uppy, accept = ["image/*"], mu
             onDragLeave={preventEvent}
             onDrop={ev => {
                 ev.preventDefault();
+                onFilesSelected?.(Array.from(ev.dataTransfer.files));
                 setFiles(Array.from(ev.dataTransfer.files))
             }}
         >
             <div className={styles.preview}>
-                {files.length ? <Slider photos={filesToPhotos(files)} className={styles.slider}/> : 
-                    defaultPreviewUrl ? <img src={defaultPreviewUrl} alt="Preview"/> : text}
+                {files.length ? <Slider photos={filesToPhotos(files)} className={styles.slider} /> :
+                    defaultPreviewUrl ? <img src={defaultPreviewUrl} alt="Preview" /> : text}
             </div>
             <input type="file" accept={accept.join(",")} multiple={multiple} ref={inputRef} hidden onChange={ev => {
                 if (ev.target.files?.length) {
+                    onFilesSelected?.(Array.from(ev.target.files));
                     setFiles(Array.from(ev.target.files))
                 }
             }
@@ -59,5 +76,5 @@ export const ImageInput: FC<ImageInputProps> = ({ uppy, accept = ["image/*"], mu
 }
 
 const filesToPhotos = (files: File[]): IPhoto[] => {
-    return files.map((file, i) => ({id: i, url: URL.createObjectURL(file)}));
+    return files.map((file, i) => ({ id: i, url: URL.createObjectURL(file) }));
 }

@@ -15,7 +15,7 @@ type ProfileInfoProps = {
     horizontal?: boolean
 }
 
-export const ProfileInfo: FC<ProfileInfoProps> = ({profile, own = false, horizontal = false}) => {
+export const ProfileInfo: FC<ProfileInfoProps> = ({ profile, own = false, horizontal = false }) => {
     const lp = useLocalization();
     const requireAuth = useAuthorization();
 
@@ -23,42 +23,44 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({profile, own = false, horizon
     const [isProfileEditOpened, setProfileEditOpened] = useState(false);
 
     const nameString = `${profile.first_name || ""} ${profile.last_name || ""}`;
-    if(horizontal) {
+    if (horizontal) {
         return (
-        <div className={classNames([styles.profileInfo, styles.horizontal])}>
-            <Avatar url={profile.profile_photo_url} border size="7.25em"/>
-            <div className={styles.info}>
-                <div className={styles.name}>
-                    {nameString}
+            <div className={classNames([styles.profileInfo, styles.horizontal])}>
+                <div className={styles.avatar}>
+                    <Avatar url={profile.profile_photo_url} border size="7.25em" />
                 </div>
-                <div className={styles.job}>
-                    {profile.job_title || ""}
-                </div>
-                <div className={styles.description}>
-                    {insertNewlines(profile.description || "")}
-                </div>
-            </div>
-            <div className={styles.separator}/>
-            <div className={styles.right}>
-                <div className={styles.social}>
-                    <div className={styles.followers}>
-                        <div className={styles.number}>{profile.followers}</div>
-                        <div className={styles.smallText}>{lp("profile_followers", {}, profile.followers)}</div>
+                <div className={styles.info}>
+                    <div className={styles.name}>
+                        {nameString}
                     </div>
-                    
-                    <div className={styles.following}>
-                        <div className={styles.number}>{profile.following}</div>
-                        <div className={styles.smallText}>{lp("profile_following")}</div>
+                    <div className={styles.job}>
+                        {profile.job_title || ""}
+                    </div>
+                    <div className={styles.description}>
+                        {insertNewlines(profile.description || "")}
                     </div>
                 </div>
-                {own && <div className={styles.actionButtons}>
-                    <Button smallPadding lightBorder onClick={() => requireAuth(() => setProfileEditOpened(true))}>{lp("profile_edit")}</Button>
-                    <Button smallPadding color="blue" onClick={() => requireAuth(() => setNewPostOpened(true))}>{lp("post_new")}</Button>
-                </div>}
+                <div className={styles.separator} />
+                <div className={styles.right}>
+                    <div className={styles.social}>
+                        <div className={styles.followers}>
+                            <div className={styles.number}>{profile.followers}</div>
+                            <div className={styles.smallText}>{lp("profile_followers", {}, profile.followers)}</div>
+                        </div>
+
+                        <div className={styles.following}>
+                            <div className={styles.number}>{profile.following}</div>
+                            <div className={styles.smallText}>{lp("profile_following")}</div>
+                        </div>
+                    </div>
+                    {own && <div className={styles.actionButtons}>
+                        <Button smallPadding lightBorder onClick={() => requireAuth(() => setProfileEditOpened(true))}>{lp("profile_edit")}</Button>
+                        <Button smallPadding color="blue" onClick={() => requireAuth(() => setNewPostOpened(true))}>{lp("post_new")}</Button>
+                    </div>}
+                </div>
+                <NewPost opened={isNewPostOpened} onRequestClose={() => setNewPostOpened(false)} />
+                <ProfileEdit opened={isProfileEditOpened} onRequestClose={() => setProfileEditOpened(false)} />
             </div>
-            <NewPost opened={isNewPostOpened} onRequestClose={() => setNewPostOpened(false)}/>
-            <ProfileEdit opened={isProfileEditOpened} onRequestClose={() => setProfileEditOpened(false)} />
-        </div>
         )
     }
 
@@ -69,7 +71,10 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({profile, own = false, horizon
                     <div className={styles.number}>{profile.followers}</div>
                     <div className={styles.smallText}>{lp("profile_followers", {}, profile.followers)}</div>
                 </div>
-                <Avatar url={profile.profile_photo_url} border size="5em"/>
+                <div className={styles.avatar}>
+                    <Avatar url={profile.profile_photo_url} border size="5em" />
+                    {own && <i className={`icon icon-add ${styles.add}`} />}
+                </div>
                 <div className={styles.following}>
                     <div className={styles.number}>{profile.following}</div>
                     <div className={styles.smallText}>{lp("profile_following")}</div>
@@ -87,7 +92,7 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({profile, own = false, horizon
                     <Button smallPadding color="blue" onClick={() => requireAuth(() => setNewPostOpened(true))}>{lp("post_new")}</Button>
                 </div>}
             </div>
-            <NewPost opened={isNewPostOpened} onRequestClose={() => setNewPostOpened(false)}/>
+            <NewPost opened={isNewPostOpened} onRequestClose={() => setNewPostOpened(false)} />
             <ProfileEdit opened={isProfileEditOpened} onRequestClose={() => setProfileEditOpened(false)} />
         </div>
     )

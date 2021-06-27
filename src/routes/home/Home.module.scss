@@ -19,6 +19,7 @@
             display: flex;
             flex-direction: column;
             max-width: 560px;
+            width: 100%;
 
             @include mobileAndTablet {
                 padding: 0 1rem;

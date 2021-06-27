@@ -50,7 +50,7 @@ export const Post: FC<PostProps> = ({ post, sliderSides, onImageClicked }) => {
                 </div>
             </div>
             <div className={styles.content}>
-                {post.photos.length ? <Slider photos={post.photos} onCenterClick={onImageClicked} sides={sliderSides} roundBorders/> : lp("post_no_images")}
+                {post.photos.length ? <Slider photos={post.photos} onCenterClick={onImageClicked} sides={sliderSides} roundBorders/> : null}
                 {post.description && <div className={styles.description}>{insertNewlines(post.description)}</div>}
             </div>
             <div className={styles.footer}>

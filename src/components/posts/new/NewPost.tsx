@@ -20,22 +20,28 @@ export const NewPost: FC<NewPostParameters> = ({ opened = false, onRequestClose 
     const dispatch = useAppDispatch();
 
     const [description, setDescription] = useState("");
+    const [error, setError] = useState("");
 
     useEffect(() => {
         if (!opened) {
             setDescription("");
+            setError("");
+            uppy.reset();
         }
     }, [opened])
 
     return (
         <Modal className={styles.newPost} isOpen={opened} onRequestClose={onRequestClose}>
-            <ImageInput 
-                text={lp("post_new_file")} 
-                className={styles.input} 
+            <ImageInput
+                text={lp("post_new_file")}
+                className={styles.input}
                 uppy={uppy}
                 multiple
                 accept={["image/png", "image/jpg", "image/jpeg"]}
+                onFailedFiles={files => setError(lp("post_new_failed_to_select", { files: files.map(el => el.name).join(",") }))}
+                onFilesSelected={() => setError("")}
             />
+            {error && <div className={styles.error}>{error}</div>}
             <TextArea
                 className={styles.description}
                 minRows={3}
@@ -47,8 +53,19 @@ export const NewPost: FC<NewPostParameters> = ({ opened = false, onRequestClose 
             <div className={styles.buttons}>
                 <Button lightBorder onClick={onRequestClose}>{lp("general_cancel")}</Button>
                 <Button color="blue" onClick={async ev => {
-                    const result = await uppy.upload()
-                    // TODO handle errors, move this code into util
+                    let result;
+                    try {
+                        result = await uppy.upload()
+                    } catch (ex) {
+                        setError(ex);
+                        return;
+                    }
+                    // move this code into util
+                    if (result.failed.length) {
+                        setError(lp("post_new_failed_to_upload", { files: result.failed.map(el => el.name).join(",") }))
+                        return;
+                    }
+
                     if (result.successful.length) {
                         const images = transformFileData(result.successful);
                         dispatch(createOwnPost({
@@ -57,6 +74,7 @@ export const NewPost: FC<NewPostParameters> = ({ opened = false, onRequestClose 
                         }))
                         onRequestClose?.(ev);
                     } else if (result.successful.length === 0 && result.failed.length === 0) {
+                        // text post, without images
                         if (description) {
                             dispatch(createOwnPost({
                                 description,

@@ -8,8 +8,7 @@
     }
 
     @include mobileAndTablet {
-        max-width: 90vw; // fixes overflow
-        margin: 0 auto 2rem auto;
+        margin-bottom: 2rem;
     }
 
     .scroll {

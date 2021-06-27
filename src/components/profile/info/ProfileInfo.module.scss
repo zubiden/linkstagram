@@ -18,6 +18,22 @@
         justify-content: space-around;
     }
 
+    .avatar {
+        position: relative;
+        .add {
+            font-size: 0.75rem;
+            color: var(--invertedTextColor);
+            padding: 0.25rem;
+
+            position: absolute;
+            bottom: -0.35rem;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0.4rem;
+            background-image: linear-gradient(to bottom left, var(--accentColor), var(--accentSecondaryColor));;
+        }
+    }
+
     .followers,
     .following {
         display: flex;

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { FC, useEffect, useState } from "react";
+import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { closePost, leaveOwnComment, openPost, selectOpenedComments, selectOpenedPost } from "../../../slices/openedPostSlice";
 import { dislikePost, likePost, selectPostsStatus } from "../../../slices/postsSlice";
 import { IComment, IPost } from "../../../types";
@@ -18,7 +18,7 @@ import styles from "./ModalPost.module.scss";
 type ModalPostParams = {
     opened?: boolean
     postId?: number
-    onRequestClose?(event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>): void
+    onRequestClose?: MouseEventHandler<HTMLElement>
 }
 
 export const ModalPost: FC<ModalPostParams> = ({ postId = -1, opened = false, onRequestClose }) => {

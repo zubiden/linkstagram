@@ -5,9 +5,17 @@
     align-content: center;
     min-width: 300px;
     max-width: 560px;
+    position: relative;
 
     .text {
         text-align: center;
         font-weight: 700;
+    }
+
+    .toast {
+        align-self: center;
+        position: sticky;
+        top: 100px;
+        z-index: 100;
     }
 }

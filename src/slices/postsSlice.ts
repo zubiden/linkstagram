@@ -7,14 +7,27 @@ import { selectOpenedPost, setOpenedPost } from "./openedPostSlice";
 export interface PostsState {
     loadedPosts: IPost[];
     currentPostsUsername: string | null;
+    newPostsAvailable: boolean
     status: "idle" | "loading" | "failed";
 }
 
 const initialState: PostsState = {
     loadedPosts: [],
     currentPostsUsername: null,
+    newPostsAvailable: false,
     status: "idle",
 }
+
+export const checkForNewPosts = createAsyncThunk(
+    "posts/check",
+    async (_, thunkAPI) => {
+        const state = thunkAPI.getState() as RootState;
+        const username = selectCurrentPostsUsername(state);
+        const loadedPosts = selectLoadedPosts(state);
+        const firstPage = await (!!username ? fetchUserPosts(username, 1) : fetchPosts(1));
+        thunkAPI.dispatch(setNewPostsAvailable(firstPage[0].id > loadedPosts[0].id));
+    }
+);
 
 export const fetchAllPosts = createAsyncThunk(
     "posts/fetchAllPosts",
@@ -94,6 +107,9 @@ const postsSlice = createSlice({
         },
         removePost(state, action: PayloadAction<number>) {
             state.loadedPosts = state.loadedPosts.filter(post => post.id !== action.payload);
+        },
+        setNewPostsAvailable(state, action: PayloadAction<boolean>) {
+            state.newPostsAvailable = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -104,6 +120,7 @@ const postsSlice = createSlice({
         }).addCase(fetchAllPosts.fulfilled, (state, action) => {
             state.status = "idle";
             state.loadedPosts = action.payload;
+            state.newPostsAvailable = false;
         }).addCase(fetchAllPosts.rejected, (state) => {
             state.status = "failed";
         })
@@ -120,10 +137,11 @@ const postsSlice = createSlice({
 export default postsSlice.reducer;
 
 // Actions
-const { setCurrentPostsUsername, removePost } = postsSlice.actions;
+const { setCurrentPostsUsername, removePost, setNewPostsAvailable } = postsSlice.actions;
 
 //Selectors
 
 export const selectLoadedPosts = (state: RootState) => state.posts.loadedPosts;
 export const selectPostsStatus = (state: RootState) => state.posts.status;
 export const selectCurrentPostsUsername = (state: RootState) => state.posts.currentPostsUsername;
+export const selectNewPostsAvailable = (state: RootState) => state.posts.newPostsAvailable;

@@ -3,7 +3,7 @@
 .login {
     display: flex;
     flex-direction: column;
-    min-height: calc(var(--vh100));
+    max-height: calc(var(--vh100));
 
     :global {
         animation: fadeIn 0.25s ease-in-out;
@@ -12,14 +12,63 @@
     .content {
         display: flex;
         flex-grow: 1;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: stretch;
+        overflow: hidden;
+
         @include desktop {
             gap: 4rem;
         }
 
         .presentation {
             font-size: 2rem;
+            position: relative;
+            margin: 5% 0;
+            z-index: 0;
+
+            .scrollable {
+                height: 100%;
+                overflow-y: auto;
+                z-index: 10;
+                border-radius: 1rem;
+                .profile {
+                    max-width: 350px;
+                }
+            }
+
+            .float1, .float2, .float3 {
+                position: absolute;
+                width: 4rem;
+                background-size: cover;
+                background-position: center;
+                border-radius: 1rem;
+                filter: drop-shadow(4.20797px 4.20797px 25px rgba(0, 0, 0, 0.37));
+
+                &::after {
+                    content: "";
+                    display: block;
+                    padding-bottom: 100%;
+                }
+            }
+
+            .float1 {
+                width: 10rem;
+                left: -5rem;
+                top: 50%;
+            }
+
+            .float2 {
+                width: 8rem;
+                bottom: -2rem;
+                right: -5rem;
+            }
+
+            .float3 {
+                z-index: -1;
+                width: 5rem;
+                right: -4rem;
+                bottom: 40%;
+            }
 
             @include mobileAndTablet {
                 display: none;

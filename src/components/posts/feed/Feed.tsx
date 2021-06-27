@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { fetchAllPosts, selectLoadedPosts, selectPostsStatus } from "../../../slices/postsSlice";
-import { useAppDispatch, useLocalization } from "../../../util/hooks";
+import { checkForNewPosts, fetchAllPosts, selectLoadedPosts, selectNewPostsAvailable, selectPostsStatus } from "../../../slices/postsSlice";
+import { useAppDispatch, useAppSelector, useLocalization } from "../../../util/hooks";
 import { ModalPost } from "../modal/ModalPost";
 import { Post } from "../post/Post";
+import { Toast } from "../toast/Toast";
 import styles from "./Feed.module.scss";
 
 type FeedParameters = {
@@ -19,9 +19,23 @@ export const Feed: FC<FeedParameters> = ({ username }) => {
     }, [username, dispatch]);
 
     const [modalPostId, setModalPostId] = useState(-1);
+    const [showToast, setShowToast] = useState(false);
 
-    const posts = useSelector(selectLoadedPosts);
-    const status = useSelector(selectPostsStatus);
+    const posts = useAppSelector(selectLoadedPosts);
+    const status = useAppSelector(selectPostsStatus);
+    const newPostsAvailable = useAppSelector(selectNewPostsAvailable);
+
+    useEffect(() => {
+        setShowToast(newPostsAvailable);
+    }, [newPostsAvailable]);
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            dispatch(checkForNewPosts());
+        }, 10000);
+
+        return () => clearInterval(id);
+    }, [dispatch]);
 
     let content;
 
@@ -41,6 +55,13 @@ export const Feed: FC<FeedParameters> = ({ username }) => {
 
     return (
         <div className={styles.feed}>
+            <Toast 
+                className={styles.toast}
+                show={showToast} 
+                text={lp("feed_new_posts")}
+                onClick={() => dispatch(fetchAllPosts(username))} 
+                onClose={() => setShowToast(false)}
+            />
             {content}
             <ModalPost opened={modalPostId >= 0} postId={modalPostId} onRequestClose={() => setModalPostId(-1)}/>
         </div>
