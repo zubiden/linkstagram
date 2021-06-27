@@ -26,6 +26,8 @@
     "post_new_description_placeholder": "Description...",
     "post_new_file": "Upload any photos from your library",
     "post_new_post": "Post",
+    "post_new_failed_to_select": "Failed to select {files}",
+    "post_new_failed_to_upload": "Failed to upload {files}",
     "post_no_images": "No images",
     "post_copy_link": "Copy link",
     "post_delete": "Delete",
@@ -35,6 +37,7 @@
     "post_no_comments": "No comments yet",
     
     "feed_no_posts": "No posts",
+    "feed_new_posts": "New posts available",
 
     "header_home": "Home",
 
