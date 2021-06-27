@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { Item, Menu, useContextMenu } from 'react-contexify';
 import 'react-contexify/dist/ReactContexify.css';
@@ -19,10 +20,11 @@ import styles from "./Post.module.scss";
 type PostProps = {
     post: IPost
     sliderSides?: boolean
+    fullDescription?: boolean
     onClick?: MouseEventHandler<HTMLElement>
 }
 
-export const Post: FC<PostProps> = ({ post, sliderSides, onClick }) => {
+export const Post: FC<PostProps> = ({ post, sliderSides, fullDescription = false, onClick }) => {
     const lp = useLocalization();
     const history = useHistory();
     const dispatch = useAppDispatch();
@@ -76,7 +78,10 @@ export const Post: FC<PostProps> = ({ post, sliderSides, onClick }) => {
                                                 roundBorders/>}
                     {shared && <div className={styles.shared}><span>{lp("post_copied")}</span></div>}
                 </div>
-                {post.description && <div className={styles.description} onClick={onClick}>{insertNewlines(post.description)}</div>}
+                {post.description && <div className={classNames({
+                    [styles.description]: true,
+                    [styles.short]: !fullDescription
+                    })} onClick={onClick}>{insertNewlines(post.description)}</div>}
             </div>
             <div className={styles.footer}>
                 <IconButton

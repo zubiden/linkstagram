@@ -4,7 +4,9 @@ import { closePost, leaveOwnComment, openPost, selectOpenedComments, selectOpene
 import { dislikePost, likePost, selectPostsStatus } from "../../../slices/postsSlice";
 import { IComment, IPost } from "../../../types";
 import { IS_DESKTOP } from "../../../util/contants";
+import { getRelativeDateKey } from "../../../util/date";
 import { useAppDispatch, useAppSelector, useAuthorization, useLocalization, useWindowSize } from "../../../util/hooks";
+import { insertNewlines } from "../../../util/jsx";
 import { Avatar } from "../../basic/avatar/Avatar";
 import { IconButton } from "../../basic/button/IconButton";
 import { Modal } from "../../basic/modal/Modal";
@@ -52,7 +54,7 @@ export const ModalPost: FC<ModalPostParams> = ({ postId = -1, opened = false, on
             content = (
                 <>
                     <Header back onBackClick={onRequestClose} />
-                    <Post post={post} sliderSides />
+                    <Post post={post} sliderSides fullDescription />
                     <Comments post={post} comments={comments} />
                 </>
             )
@@ -61,15 +63,19 @@ export const ModalPost: FC<ModalPostParams> = ({ postId = -1, opened = false, on
                 <>
                     {post.photos.length ?
                         <Slider photos={post.photos} className={styles.slider} />
-                        : <div className={styles.noImages}>{lp("post_no_images")}</div>}
+                        : <div className={styles.noImages}><span>{lp("post_no_images")}</span></div>}
                     <div className={styles.data}>
                         <div className={styles.header}>
                             <Avatar className={styles.avatar} url={post.author.profile_photo_url} size="3rem" />
-                            <div className={styles.name}>
-                                {`${post.author.first_name || ""} ${post.author.last_name || ""}`}
+                            <div className={styles.left}>
+                                <div className={styles.name}>{`${post.author.first_name || ""} ${post.author.last_name || ""}`}</div>
+                                <div className={styles.date}>{lp(getRelativeDateKey(post.created_at))}</div>
                             </div>
                             <div className={styles.separator} />
                             <i className={`icon icon-cross ${styles.close}`} onClick={onRequestClose} />
+                        </div>
+                        <div className={styles.description}>
+                            {insertNewlines(post.description)}
                         </div>
                         <Comments post={post} comments={comments} likes padding />
                     </div>

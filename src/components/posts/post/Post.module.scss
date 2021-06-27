@@ -11,7 +11,7 @@
     .header {
         display: flex;
         margin-bottom: 1em;
-    
+
         .info {
             display: flex;
             flex-direction: column;
@@ -57,7 +57,7 @@
                 :global {
                     animation: fadeIn 0.2s ease-in-out;
                 }
-                
+
                 span {
                     font-size: 1.5rem;
                     position: absolute;
@@ -76,15 +76,18 @@
         }
 
         .description {
-            display: -webkit-box;
-
             color: var(--secondaryTextColor);
-            max-height: 4.5rem;
-            
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
+
+            &.short {
+                display: -webkit-box;
+
+                max-height: 4.5rem;
+
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     }
 
@@ -100,7 +103,8 @@
         }
 
         .share {
-            &, i {
+            &,
+            i {
                 font-weight: 600;
             }
             cursor: pointer;
@@ -108,6 +112,6 @@
     }
 }
 
-.danger > div{
+.danger > div {
     color: var(--dangerColor);
 }

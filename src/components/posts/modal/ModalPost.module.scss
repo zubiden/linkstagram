@@ -31,10 +31,19 @@
             .avatar {
                 margin: 1.25rem 0;
             }
-
-            .name {
-                font-weight: 500;
+            .left {
+                display: flex;
+                flex-direction: column;
                 margin-left: 1rem;
+
+                .name {
+                    font-weight: 500;
+                }
+
+                .date {
+                    color: var(--secondaryTextColorB);
+                    font-size: 0.75rem;
+                }
             }
 
             .separator {
@@ -45,6 +54,20 @@
                 cursor: pointer;
             }
         }
+    }
+
+    .noImages {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .description {
+        color: var(--secondaryTextColor);
+        max-height: 200px;
+        overflow-y: auto;
+        padding: 1rem 1rem 1rem 2rem;
+        border-bottom: 1px solid var(--hrColor);
     }
 
     .buttons {
